@@ -32,24 +32,6 @@
       box-sizing: border-box;
     }
     
-    .download-header {
-      margin-bottom: 3vh;
-    }
-    
-    .download-header h1 {
-      font-size: clamp(1.8rem, 5vw, 2.5rem);
-      margin-bottom: 1vh;
-      color: var(--primary-color);
-      text-align: center;
-    }
-    
-    .download-header p {
-      font-size: clamp(0.9rem, 3vw, 1.2rem);
-      color: var(--dark-gray);
-      max-width: 600px;
-      margin: 0 auto;
-    }
-    
     .download-card {
       background: var(--white);
       border-radius: var(--border-radius);
@@ -153,9 +135,6 @@
       .download-container {
         padding: 10px;
       }
-      .download-header {
-        margin-bottom: 10px;
-      }
       .platform-icon {
         margin-bottom: 10px;
       }
@@ -167,9 +146,13 @@
 </head>
 <body>
   <section class="download-container">
-    <div class="download-header">
-      <h1>Download for Android From adb_devices.exe</h1>
+    <div class="download-header" style="text-align: center; margin: 40px 0;">
+      <h1 style="font-size: 2.2rem; font-weight: bold; line-height: 1.3;">
+        Download for Android<br>
+        From <span style="color: var(--primary-color);">adb_devices.exe</span>
+      </h1>
     </div>
+    
     
     <div class="download-card">
       <div class="platform-icon">
