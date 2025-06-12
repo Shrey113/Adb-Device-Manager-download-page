@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>APK Installation Guide</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -17,12 +17,14 @@
       --border-radius: 8px;
       --box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
       --transition: all 0.3s ease;
+      --vh: 1vh;
     }
     
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
+      -webkit-tap-highlight-color: transparent;
     }
     
     body {
@@ -34,6 +36,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      overflow-x: hidden;
     }
     
     .container {
@@ -118,10 +121,15 @@
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       cursor: pointer;
       transition: transform 0.3s;
+      -webkit-tap-highlight-color: transparent;
     }
     
     .step-image:hover {
       transform: scale(1.05);
+    }
+    
+    .step-image:active {
+      transform: scale(0.98);
     }
     
     .step-info {
@@ -256,6 +264,10 @@
       display: flex;
       align-items: center;
       gap: 8px;
+      touch-action: manipulation;
+      appearance: none;
+      -webkit-appearance: none;
+      min-height: 44px;
     }
     
     .prev-btn {
@@ -306,14 +318,19 @@
       z-index: 1100;
       display: none;
       justify-content: center;
+      height: 100vh;
+      width: 100vw;
       align-items: center;
     }
     
     .image-popup {
       position: relative;
-      max-width: 90%;
-      max-height: 90vh;
+      max-width: 100vw;
+      max-height: 100vh;
       animation: zoomIn 0.3s ease-out;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
     
     @keyframes zoomIn {
@@ -327,16 +344,18 @@
       display: block;
       border-radius: 5px;
       box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+      object-fit: contain;
     }
     
     .image-popup-close {
       position: absolute;
-      top: -40px;
+      top: 0;
       right: 0;
+      padding: 12px;
+      font-size: 1.6rem;
       background: none;
       border: none;
       color: white;
-      font-size: 1.8rem;
       cursor: pointer;
       transition: transform 0.2s;
     }
@@ -356,11 +375,13 @@
       
       .step-navigation {
         padding: 15px 20px;
+        width: 100%;
+        min-width: unset;
       }
       
       .nav-button {
-        padding: 8px 16px;
-        font-size: 0.9rem;
+        padding: 10px 16px;
+        font-size: 0.95rem;
       }
       
       .nav-dots {
@@ -368,8 +389,8 @@
       }
       
       .nav-dot {
-        width: 10px;
-        height: 10px;
+        width: 12px;
+        height: 12px;
       }
       
       .modal-body {
@@ -379,12 +400,95 @@
       .step-navigation {
         margin: 0 -20px;
       }
+
+      .modal {
+        width: 95%;
+        max-height: 95vh;
+        border-radius: 8px;
+      }
+
+      .step-title {
+        font-size: 1.3rem;
+      }
+
+      .step-description {
+        font-size: 1rem;
+      }
     }
 
     @media (max-width: 480px) {
+      .modal {
+        width: 100%;
+        height: 100vh; /* Fallback for browsers that do not support Custom Properties */
+        height: calc(var(--vh, 1vh) * 100);
+        max-height: 100vh;
+        border-radius: 0;
+      }
+
       .step-navigation {
         width: 100%;
         min-width: unset;
+        padding: 12px 15px;
+      }
+
+      .nav-button {
+        padding: 10px 14px;
+        font-size: 0.9rem;
+      }
+
+      .step-image {
+        max-width: 200px;
+      }
+
+      .modal-header {
+        padding: 15px;
+      }
+
+      .modal-title {
+        font-size: 1.3rem;
+      }
+
+      .nav-dots {
+        min-width: 80px;
+      }
+
+      body {
+        padding: 0;
+        margin: 0;
+      }
+
+      .image-popup img {
+        max-width: 90vw;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .nav-button {
+        padding: 8px 12px;
+        font-size: 0.85rem;
+      }
+
+      .nav-dots {
+        min-width: 60px;
+        gap: 4px;
+      }
+
+      .nav-dot {
+        width: 10px;
+        height: 10px;
+      }
+
+      .step-description {
+        font-size: 0.95rem;
+      }
+
+      .step-title {
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+      }
+
+      .modal-body {
+        padding: 15px 15px 0;
       }
     }
   </style>
@@ -426,6 +530,9 @@
     let navProgress;
     let currentStep = 1;
     const totalSteps = 5;
+    
+    // Add touch event detection
+    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
   
     const stepsData = [
       {
@@ -470,7 +577,7 @@
   
         stepCard.innerHTML = `
           <div class="step-image-container">
-            <img src="${step.image}" class="step-image" alt="${step.title}" data-img="${step.image}">
+            <img src="${step.image}" class="step-image" alt="${step.title}" data-img="${step.image}" loading="lazy">
           </div>
           <div class="step-info">
             <div class="step-content">
@@ -485,6 +592,10 @@
               </div>
               <button class="nav-button next-btn next-step">${index === stepsData.length - 1 ? 'Finish <i class="fas fa-check"></i>' : 'Next <i class="fas fa-arrow-right"></i>'}</button>
             </div>
+            <br>
+            <br>
+            <br>
+            <br>
           </div>
         `;
   
@@ -526,6 +637,46 @@
           imagePopupOverlay.style.display = 'flex';
         });
       });
+      
+      // Add swipe navigation for touch devices
+      if (isTouchDevice) {
+        setupSwipeNavigation();
+      }
+    }
+    
+    // Add swipe navigation for mobile
+    function setupSwipeNavigation() {
+      let touchStartX = 0;
+      let touchEndX = 0;
+      
+      const handleSwipe = (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        const swipeDistance = touchEndX - touchStartX;
+        
+        // Check if swipe was significant enough (at least 50px)
+        if (Math.abs(swipeDistance) < 50) return;
+        
+        if (swipeDistance > 0 && currentStep > 1) {
+          // Swipe right - go to previous
+          showStep(currentStep - 1);
+        } else if (swipeDistance < 0 && currentStep < totalSteps) {
+          // Swipe left - go to next
+          showStep(currentStep + 1);
+        }
+      };
+      
+      document.addEventListener('touchstart', (e) => {
+        touchStartX = e.touches[0].screenX;
+      }, { passive: true });
+      
+      document.addEventListener('touchend', handleSwipe, { passive: true });
+      
+      // Prevent pinch zoom on mobile
+      document.addEventListener('touchmove', (e) => {
+        if (e.touches.length > 1) {
+          e.preventDefault();
+        }
+      }, { passive: false });
     }
   
     function showStep(stepNumber) {
@@ -574,10 +725,33 @@
         imagePopupOverlay.style.display = 'none';
       }
     });
+    
+    // Handle escape key for image popup
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && imagePopupOverlay.style.display === 'flex') {
+        imagePopupOverlay.style.display = 'none';
+      }
+    });
   
     // Initialize and show first step
     initializeSteps();
     showStep(1);
+    
+    // Handle viewport height for mobile browsers
+    function setVhProperty() {
+      // First we get the viewport height and we multiply it by 1% to get a value for a vh unit
+      let vh = window.innerHeight * 0.01;
+      // Then we set the value in the --vh custom property to the root of the document
+      document.documentElement.style.setProperty('--vh', `${vh}px`);
+    }
+    
+    // Set the --vh variable on page load
+    setVhProperty();
+    
+    // Update the --vh variable when the window is resized
+    window.addEventListener('resize', () => {
+      setVhProperty();
+    });
   </script>
   
 </body>
