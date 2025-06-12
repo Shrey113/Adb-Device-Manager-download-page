@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>APK Installation Guide - ADB Device Manager</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    .guide-container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 60px 20px;
+    }
+    
+    .guide-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+    
+    .guide-header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      color: var(--primary-color);
+    }
+    
+    .guide-header p {
+      font-size: 1.2rem;
+      color: var(--dark-gray);
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    
+    .installation-steps {
+      background: var(--white);
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+      overflow: hidden;
+    }
+    
+    .step-container {
+      display: grid;
+      grid-template-columns: 1fr;
+    }
+    
+    .step-card {
+      display: none;
+      padding: 0;
+    }
+    
+    .step-card.active {
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      animation: fadeIn 0.5s ease;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    .step-image-wrapper {
+      background-color: var(--light-gray);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+    }
+    
+    .step-image {
+      max-width: 100%;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s;
+      cursor: pointer;
+    }
+    
+    .step-image:hover {
+      transform: scale(1.05);
+    }
+    
+    .step-content {
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .step-number {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--primary-color);
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      letter-spacing: 1px;
+    }
+    
+    .step-title {
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+      color: var(--dark-gray);
+    }
+    
+    .step-description {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: var(--dark-gray);
+      margin-bottom: 30px;
+      flex-grow: 1;
+    }
+    
+    .step-nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: auto;
+    }
+    
+    .step-btn {
+      display: inline-flex;
+      align-items: center;
+      padding: 12px 24px;
+      border-radius: 30px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-size: 1rem;
+      border: none;
+    }
+    
+    .prev-btn {
+      background-color: var(--light-gray);
+      color: var(--dark-gray);
+    }
+    
+    .prev-btn:hover:not(:disabled) {
+      background-color: var(--medium-gray);
+      transform: translateX(-3px);
+    }
+    
+    .prev-btn i {
+      margin-right: 8px;
+    }
+    
+    .next-btn {
+      background-color: var(--primary-color);
+      color: var(--white);
+    }
+    
+    .next-btn:hover:not(:disabled) {
+      background-color: var(--primary-dark);
+      transform: translateX(3px);
+    }
+    
+    .next-btn i {
+      margin-left: 8px;
+    }
+    
+    .step-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    
+    .steps-progress {
+      display: flex;
+      justify-content: center;
+      margin: 30px 0;
+    }
+    
+    .progress-container {
+      display: flex;
+      align-items: center;
+      position: relative;
+    }
+    
+    .progress-bar {
+      position: absolute;
+      height: 2px;
+      background-color: var(--medium-gray);
+      left: 25px;
+      right: 25px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 1;
+    }
+    
+    .progress-indicator {
+      position: absolute;
+      height: 2px;
+      background-color: var(--primary-color);
+      left: 25px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 2;
+      transition: width 0.4s ease;
+    }
+    
+    .step-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background-color: white;
+      border: 2px solid var(--medium-gray);
+      margin: 0 25px;
+      position: relative;
+      z-index: 3;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    .step-dot.active {
+      background-color: var(--primary-color);
+      border-color: var(--primary-color);
+      transform: scale(1.2);
+    }
+    
+    .step-dot.completed {
+      background-color: var(--primary-color);
+      border-color: var(--primary-color);
+    }
+    
+    .step-dot:hover:not(.active) {
+      transform: scale(1.1);
+      border-color: var(--primary-color);
+    }
+    
+    .step-tooltip {
+      position: absolute;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: var(--dark-gray);
+      color: white;
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    
+    .step-tooltip::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border-width: 5px;
+      border-style: solid;
+      border-color: var(--dark-gray) transparent transparent transparent;
+    }
+    
+    .step-dot:hover .step-tooltip {
+      opacity: 1;
+      visibility: visible;
+      bottom: 28px;
+    }
+    
+    /* Image popup styles */
+    .image-popup-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.9);
+      z-index: 1000;
+      display: none;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .image-popup {
+      position: relative;
+      max-width: 90%;
+      max-height: 90vh;
+      animation: zoomIn 0.3s ease-out;
+    }
+    
+    @keyframes zoomIn {
+      from { transform: scale(0.95); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+    
+    .image-popup img {
+      max-width: 100%;
+      max-height: 90vh;
+      display: block;
+      border-radius: 5px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    }
+    
+    .image-popup-close {
+      position: absolute;
+      top: -40px;
+      right: 0;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.8rem;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    
+    .image-popup-close:hover {
+      transform: scale(1.1);
+    }
+    
+    @media (max-width: 768px) {
+      .step-card.active {
+        grid-template-columns: 1fr;
+      }
+      
+      .step-image-wrapper {
+        padding: 20px;
+      }
+      
+      .step-content {
+        padding: 30px;
+      }
+      
+      .step-title {
+        font-size: 1.5rem;
+      }
+      
+      .step-description {
+        font-size: 1rem;
+      }
+      
+      .step-btn {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <section class="guide-container">
+    <div class="guide-header">
+      <h1>APK Installation Guide</h1>
+      <p>Follow these simple steps to install the ADB Device Manager app on your Android device</p>
+    </div>
+    
+    <div class="installation-steps">
+      <div class="step-container" id="step-container">
+        <!-- Step 1 -->
+        <div class="step-card active" id="step-1">
+          <div class="step-image-wrapper">
+            <img src="installer_step/step_1.png" class="step-image" alt="APK Installer" data-img="installer_step/step_1.png">
+          </div>
+          <div class="step-content">
+            <div class="step-number">Step 1</div>
+            <h3 class="step-title">APK Installer</h3>
+            <p class="step-description">This app will install APK files for "adb_devices.exe". You can delete it after installation is complete. Click "Install APK" to proceed.</p>
+            <div class="step-nav-buttons">
+              <button class="step-btn prev-btn" disabled>
+                <i class="fas fa-arrow-left"></i> Previous
+              </button>
+              <button class="step-btn next-btn" onclick="showStep(2)">
+                Next <i class="fas fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Step 2 -->
+        <div class="step-card" id="step-2">
+          <div class="step-image-wrapper">
+            <img src="installer_step/step_2.png" class="step-image" alt="Installation Dialog" data-img="installer_step/step_2.png">
+          </div>
+          <div class="step-content">
+            <div class="step-number">Step 2</div>
+            <h3 class="step-title">Installation Dialog</h3>
+            <p class="step-description">A notification will appear asking if you want to install this app. Click "Install" to continue with the installation process.</p>
+            <div class="step-nav-buttons">
+              <button class="step-btn prev-btn" onclick="showStep(1)">
+                <i class="fas fa-arrow-left"></i> Previous
+              </button>
+              <button class="step-btn next-btn" onclick="showStep(3)">
+                Next <i class="fas fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Step 3 -->
+        <div class="step-card" id="step-3">
+          <div class="step-image-wrapper">
+            <img src="installer_step/step_3.png" class="step-image" alt="Google Sign-In" data-img="installer_step/step_3.png">
+          </div>
+          <div class="step-content">
+            <div class="step-number">Step 3</div>
+            <h3 class="step-title">Google Sign-In</h3>
+            <p class="step-description">Sign in with your Google account to continue. Your profile data will only be shared with a single authorized app and a secure local Windows tool through adb_devices.exe.</p>
+            <div class="step-nav-buttons">
+              <button class="step-btn prev-btn" onclick="showStep(2)">
+                <i class="fas fa-arrow-left"></i> Previous
+              </button>
+              <button class="step-btn next-btn" onclick="showStep(4)">
+                Next <i class="fas fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Step 4 -->
+        <div class="step-card" id="step-4">
+          <div class="step-image-wrapper">
+            <img src="installer_step/step_4.png" class="step-image" alt="App Permissions" data-img="installer_step/step_4.png">
+          </div>
+          <div class="step-content">
+            <div class="step-number">Step 4</div>
+            <h3 class="step-title">App Permissions</h3>
+            <p class="step-description">Configure access to device features. The app requires certain permissions to properly manage your Android device. All permissions shown are necessary for full functionality.</p>
+            <div class="step-nav-buttons">
+              <button class="step-btn prev-btn" onclick="showStep(3)">
+                <i class="fas fa-arrow-left"></i> Previous
+              </button>
+              <button class="step-btn next-btn" onclick="showStep(5)">
+                Next <i class="fas fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Step 5 -->
+        <div class="step-card" id="step-5">
+          <div class="step-image-wrapper">
+            <img src="installer_step/step_3_3.png" class="step-image" alt="Installation Complete" data-img="installer_step/step_3_3.png">
+          </div>
+          <div class="step-content">
+            <div class="step-number">Step 5</div>
+            <h3 class="step-title">Installation Complete</h3>
+            <p class="step-description">The app will now set up a background service for adb_devices.exe that runs even when the app is closed, allowing for continuous device management and notification handling.</p>
+            <div class="step-nav-buttons">
+              <button class="step-btn prev-btn" onclick="showStep(4)">
+                <i class="fas fa-arrow-left"></i> Previous
+              </button>
+              <button class="step-btn next-btn" style="background-color: #0f9d58;" onclick="finishGuide()">
+                Finish <i class="fas fa-check"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="steps-progress">
+        <div class="progress-container">
+          <div class="progress-bar"></div>
+          <div class="progress-indicator" id="progress-indicator"></div>
+          
+          <div class="step-dot active" onclick="showStep(1)">
+            <div class="step-tooltip">APK Installer</div>
+          </div>
+          <div class="step-dot" onclick="showStep(2)">
+            <div class="step-tooltip">Installation Dialog</div>
+          </div>
+          <div class="step-dot" onclick="showStep(3)">
+            <div class="step-tooltip">Google Sign-In</div>
+          </div>
+          <div class="step-dot" onclick="showStep(4)">
+            <div class="step-tooltip">App Permissions</div>
+          </div>
+          <div class="step-dot" onclick="showStep(5)">
+            <div class="step-tooltip">Installation Complete</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Image popup -->
+  <div class="image-popup-overlay" id="image-popup-overlay">
+    <div class="image-popup">
+      <button class="image-popup-close" id="image-popup-close">
+        <i class="fas fa-times"></i>
+      </button>
+      <img id="popup-image" src="" alt="Installation Step">
+    </div>
+  </div>
+
+
+
+  <script>
+    // Variables
+    const stepCards = document.querySelectorAll('.step-card');
+    const stepDots = document.querySelectorAll('.step-dot');
+    const progressIndicator = document.getElementById('progress-indicator');
+    let currentStep = 1;
+    const totalSteps = 5;
+    
+    // Show a specific step
+    function showStep(stepNumber) {
+      // Hide all steps
+      stepCards.forEach(card => {
+        card.classList.remove('active');
+      });
+      
+      // Show the selected step
+      document.getElementById('step-' + stepNumber).classList.add('active');
+      
+      // Update dots
+      stepDots.forEach((dot, index) => {
+        // Remove active class from all dots
+        dot.classList.remove('active');
+        
+        // Mark completed steps
+        if (index + 1 < stepNumber) {
+          dot.classList.add('completed');
+        } else {
+          dot.classList.remove('completed');
+        }
+        
+        // Mark current step
+        if (index + 1 === stepNumber) {
+          dot.classList.add('active');
+        }
+      });
+      
+      // Update progress bar
+      const progressWidth = ((stepNumber - 1) / (totalSteps - 1)) * 100;
+      progressIndicator.style.width = progressWidth + '%';
+      
+      // Update current step
+      currentStep = stepNumber;
+      
+      // Scroll to top of step container for mobile
+      if (window.innerWidth <= 768) {
+        document.getElementById('step-container').scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    }
+    
+    // Finish the guide
+    function finishGuide() {
+      window.location.href = "android_download.html";
+    }
+    
+    // Image popup functionality
+    const imagePopupOverlay = document.getElementById('image-popup-overlay');
+    const popupImage = document.getElementById('popup-image');
+    const closeImagePopup = document.getElementById('image-popup-close');
+    const stepImages = document.querySelectorAll('.step-image');
+    
+    // Open image popup
+    stepImages.forEach(img => {
+      img.addEventListener('click', function() {
+        const imgSrc = this.getAttribute('data-img');
+        popupImage.src = imgSrc;
+        imagePopupOverlay.style.display = 'flex';
+      });
+    });
+    
+    // Close image popup
+    closeImagePopup.addEventListener('click', function() {
+      imagePopupOverlay.style.display = 'none';
+    });
+    
+    // Close image popup when clicking outside
+    imagePopupOverlay.addEventListener('click', function(e) {
+      if (e.target === imagePopupOverlay) {
+        imagePopupOverlay.style.display = 'none';
+      }
+    });
+    
+    // Initialize first step
+    showStep(1);
+  </script>
+</body>
+</html> 

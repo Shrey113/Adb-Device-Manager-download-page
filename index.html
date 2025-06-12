@@ -2,16 +2,160 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Download My App</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ADB Device Manager</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-  <div class="container">
-    <h1>📱 My Awesome App</h1>
-    <p>Click the button below to download the latest version of the app.</p>
-    <a href="https://github.com/your-username/your-repo/releases/download/v1.0.0/your_app.apk" class="download-btn" download>
-      ⬇️ Download APK
-    </a>
-  </div>
+  <header>
+    <div class="container">
+      <div class="header-content">
+        <div class="logo">
+          <i class="fas fa-mobile-alt"></i>
+          <span>ADB Device Manager</span>
+        </div>
+        <nav>
+          <ul>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#how-it-works">How It Works</a></li>
+            <li><a href="download.html" class="btn btn-primary">Download</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <h1>Manage Your Android Devices With Ease</h1>
+        <p>ADB Device Manager is a powerful tool to control, monitor, and automate tasks across multiple Android devices</p>
+        <div class="hero-buttons">
+          <a href="download.html" class="btn btn-primary">Download Now</a>
+          <a href="#features" class="btn btn-secondary">Learn More</a>
+        </div>
+      </div>
+      <div class="hero-image">
+        <img src="https://i.imgur.com/7bw21aK.png" alt="ADB Device Manager Screenshot">
+      </div>
+    </div>
+  </section>
+
+  <section id="features" class="features">
+    <div class="container">
+      <h2>Powerful Features</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-mobile-screen"></i>
+          </div>
+          <h3>Multi-Device Support</h3>
+          <p>Connect and manage multiple Android devices simultaneously, perfect for developers and testers</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-wifi"></i>
+          </div>
+          <h3>Wireless Debugging</h3>
+          <p>Connect to devices over Wi-Fi, eliminating the need for physical USB connections</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-terminal"></i>
+          </div>
+          <h3>Command Console</h3>
+          <p>Execute ADB commands with an intuitive interface and see results in real-time</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-file-download"></i>
+          </div>
+          <h3>App Installation</h3>
+          <p>Install, update, or remove applications on connected devices with ease</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-camera"></i>
+          </div>
+          <h3>Screenshot Capture</h3>
+          <p>Take screenshots remotely from connected devices with a single click</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-file-code"></i>
+          </div>
+          <h3>Log Viewer</h3>
+          <p>View, filter, and save device logs for debugging and analysis</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="how-it-works" class="how-it-works">
+    <div class="container">
+      <h2>How It Works</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-number">1</div>
+          <h3>Download & Install</h3>
+          <p>Download the application for your platform and follow the simple installation process</p>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <h3>Connect Devices</h3>
+          <p>Connect your Android devices via USB or set up wireless debugging</p>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <h3>Manage & Control</h3>
+          <p>Use the intuitive interface to manage your devices and execute commands</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="container">
+      <h2>Ready to simplify your Android device management?</h2>
+      <p>Download ADB Device Manager today and take control of your devices.</p>
+      <div style="display: flex; gap: 20px; justify-content: center; margin-top: 30px;">
+        <a href="windows_download.html" class="btn btn-primary">
+          <i class="fab fa-windows"></i> Windows Download
+        </a>
+        <a href="android_download.html" class="btn btn-primary">
+          <i class="fab fa-android"></i> Android Download
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-logo">
+          <i class="fas fa-mobile-alt"></i>
+          <span>ADB Device Manager</span>
+        </div>
+        <p class="copyright">© 2025 ADB Device Manager. All rights reserved.</p>
+        <div class="footer-links">
+          <a href="https://github.com/Shrey113/Adb-Device-Manager-download-page" target="_blank"><i class="fab fa-github"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+  </script>
 </body>
 </html>

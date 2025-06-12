@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Download ADB Device Manager</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    .download-options {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin-top: 50px;
+    }
+    
+    .download-card {
+      background: var(--white);
+      border-radius: var(--border-radius);
+      padding: 40px;
+      box-shadow: var(--box-shadow);
+      text-align: center;
+      transition: var(--transition);
+    }
+    
+    
+    .platform-icon {
+      font-size: 4rem;
+      color: var(--primary-color);
+      margin-bottom: 20px;
+    }
+    
+    .platform-name {
+      font-size: 1.8rem;
+      margin-bottom: 15px;
+    }
+    
+    .platform-details {
+      margin-bottom: 30px;
+      color: var(--dark-gray);
+    }
+    
+    .download-card ul {
+      text-align: left;
+      margin-bottom: 30px;
+      padding-left: 20px;
+    }
+    
+    .download-card ul li {
+      margin-bottom: 10px;
+      list-style-type: disc;
+    }
+
+    .system-requirements {
+      font-size: 0.9rem;
+      color: var(--dark-gray);
+      margin-top: 15px;
+    }
+    
+    .page-header {
+      padding: 160px 0 60px;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      text-align: center;
+    }
+    
+    .page-header h1 {
+      margin-bottom: 20px;
+    }
+    
+    .page-header p {
+      max-width: 600px;
+      margin: 0 auto;
+      font-size: 1.2rem;
+    }
+
+    .download-btn {
+      display: inline-block;
+      padding: 15px 30px;
+      background-color: var(--primary-color);
+      color: var(--white);
+      border-radius: var(--border-radius);
+      font-weight: 500;
+      transition: var(--transition);
+      margin-top: 20px;
+    }
+
+    .download-btn:hover {
+      background-color: var(--primary-dark);
+    }
+
+    .download-btn i {
+      margin-right: 8px;
+    }
+
+    .requirements {
+      background-color: var(--light-gray);
+      padding: 80px 0;
+    }
+
+    .requirements-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+    }
+
+    .requirement-card {
+      background: var(--white);
+      border-radius: var(--border-radius);
+      padding: 30px;
+      box-shadow: var(--box-shadow);
+    }
+
+    .requirement-card h3 {
+      border-bottom: 1px solid var(--medium-gray);
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+    }
+
+    .requirement-card ul {
+      padding-left: 20px;
+    }
+
+    .requirement-card li {
+      margin-bottom: 10px;
+      list-style-type: disc;
+    }
+
+    @media (max-width: 768px) {
+      .requirements-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    /* Installation Steps Modal Styles */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.75);
+      z-index: 1000;
+      display: flex;
+      display: flex;
+      display: flex;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .modal {
+      background-color: white;
+      border-radius: 12px;
+      max-width: 800px;
+      width: 90%;
+      position: relative;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      animation: modalFadeIn 0.3s ease-out;
+      display: flex;
+      flex-direction: column;
+      max-height: 90vh;
+    }
+    
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .modal-header {
+      padding: 20px;
+      border-bottom: 1px solid #e9ecef;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-shrink: 0;
+    }
+    
+    .modal-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin: 0;
+    }
+    
+    .modal-close {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #555;
+      transition: color 0.2s;
+    }
+    
+    .modal-close:hover {
+      color: #000;
+    }
+    
+    .modal-body {
+      padding: 30px 30px 0;
+      position: relative;
+      overflow-y: auto;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .steps-container {
+      flex-grow: 1;
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 1;
+    }
+    
+    /* Step card styling */
+    .step-card {
+      display: none;
+      grid-template-columns: 0.8fr 1.5fr;
+      gap: 25px;
+      align-items: flex-start;
+    }
+    
+    .step-card.active {
+      display: grid;
+      animation: fadeIn 0.3s ease-out;
+    }
+    
+    .step-image-container {
+      text-align: center;
+      align-self: center;
+    }
+    
+    .step-image {
+      width: 100%;
+      max-width: 250px;
+      height: auto;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+    
+    .step-image:hover {
+      transform: scale(1.05);
+    }
+    
+    .step-info {
+      padding: 0 10px;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      justify-content: space-between;
+    }
+    
+    .step-content {
+      margin-bottom: 20px;
+    }
+    
+    .step-title {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: 15px;
+      color: #333;
+    }
+    
+    .step-description {
+      color: #555;
+      line-height: 1.6;
+      font-size: 1.05rem;
+    }
+    
+    /* Navigation controls */
+    .step-navigation {
+      bottom: 0;
+      right: 0;
+      width: 40%;
+      min-width: 400px;
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+      border-top: 1px solid #eaeaea;
+      background-color: white;
+      flex-shrink: 0;
+    }
+
+    .nav-dots {
+      display: flex;
+      gap: 8px;
+      position: relative;
+      height: 20px;
+      align-items: center;
+      min-width: 100px;
+    }
+
+    .nav-dots::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 7px;
+      right: 7px;
+      height: 2px;
+      background-color: #ddd;
+      transform: translateY(-50%);
+      z-index: 0;
+    }
+
+    .nav-progress {
+      position: absolute;
+      top: 50%;
+      left: 7px;
+      height: 2px;
+      background-color: #4285F4;
+      transform: translateY(-50%);
+      z-index: 1;
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    .nav-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: white;
+      border: 2px solid #ddd;
+      z-index: 2;
+      cursor: pointer;
+      transition: all 0.3s;
+      position: relative;
+    }
+
+    .nav-dot:hover {
+      border-color: #aaa;
+    }
+    
+    .nav-dot::after {
+      content: attr(data-step);
+      position: absolute;
+      top: -25px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #333;
+      color: white;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 10px;
+      opacity: 0;
+      transition: opacity 0.2s;
+      pointer-events: none;
+    }
+    
+    .nav-dot:hover::after {
+      opacity: 1;
+    }
+    
+    .nav-dot.active {
+      background-color: #4285F4;
+      border-color: #4285F4;
+      transform: scale(1.2);
+      box-shadow: 0 0 0 2px rgba(66, 133, 244, 0.3);
+    }
+    
+    .nav-dot.completed {
+      background-color: #4285F4;
+      border-color: #4285F4;
+    }
+    
+    .nav-button {
+      padding: 10px 24px;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .prev-btn {
+      background-color: #f0f0f0;
+      color: #333;
+    }
+    
+    .prev-btn:hover:not(:disabled) {
+      background-color: #e0e0e0;
+      transform: translateX(-2px);
+    }
+    
+    .next-btn {
+      background-color: #4285F4;
+      color: white;
+    }
+    
+    .next-btn:hover:not(:disabled) {
+      background-color: #3367d6;
+      transform: translateX(2px);
+    }
+    
+    .nav-button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    
+    .nav-button i {
+      margin: 0 5px;
+    }
+    
+    .finish-btn {
+      background-color: #0f9d58;
+    }
+    
+    .finish-btn:hover:not(:disabled) {
+      background-color: #0b8043;
+    }
+    
+    /* Image popup */
+    .image-popup-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.9);
+      z-index: 1100;
+      display: none;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .image-popup {
+      position: relative;
+      max-width: 90%;
+      max-height: 90vh;
+      animation: zoomIn 0.3s ease-out;
+    }
+    
+    @keyframes zoomIn {
+      from { transform: scale(0.95); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+    
+    .image-popup img {
+      max-width: 100%;
+      max-height: 90vh;
+      display: block;
+      border-radius: 5px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    }
+    
+    .image-popup-close {
+      position: absolute;
+      top: -40px;
+      right: 0;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.8rem;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    
+    .image-popup-close:hover {
+      transform: scale(1.1);
+    }
+
+    @media (max-width: 768px) {
+      .step-card {
+        grid-template-columns: 1fr;
+      }
+      
+      .step-image-container {
+        margin-bottom: 20px;
+      }
+      
+      .step-navigation {
+        padding: 15px 20px;
+      }
+      
+      .nav-button {
+        padding: 8px 16px;
+        font-size: 0.9rem;
+      }
+      
+      .nav-dots {
+        gap: 6px;
+      }
+      
+      .nav-dot {
+        width: 10px;
+        height: 10px;
+      }
+      
+      .modal-body {
+        padding: 20px 20px 0;
+      }
+      
+      .step-navigation {
+        margin: 0 -20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <div class="header-content">
+        <div class="logo">
+          <i class="fas fa-mobile-alt"></i>
+          <span>ADB Device Manager</span>
+        </div>
+        <nav>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="index.html#features">Features</a></li>
+            <li><a href="index.html#how-it-works">How It Works</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <section class="page-header">
+    <div class="container">
+      <h1>Download ADB Device Manager</h1>
+      <p>Choose the version that's right for you and start managing your Android devices with ease</p>
+    </div>
+  </section>
+
+  <section class="download-section">
+    <div class="container">
+      <div class="download-options">
+        <div class="download-card">
+          <div class="platform-icon">
+            <i class="fab fa-windows"></i>
+          </div>
+          <h3 class="platform-name">Windows</h3>
+          <p class="platform-details">For Windows 10/11 (64-bit)</p>
+          <ul>
+            <li>Complete ADB toolset included</li>
+            <li>Optimized for desktop usage</li>
+            <li>Multiple device management</li>
+          </ul>
+          <a href="https://github.com/Shrey113/Adb-Device-Manager/releases/download/ADB-Device-Manager-v.0.6/adb_devices.exe" class="download-btn">
+            <i class="fas fa-download"></i> Download for Windows
+          </a>
+          <p class="system-requirements">Version 1.0.0 • 500 MB+</p>
+        </div>
+        
+        <div class="download-card">
+          <div class="platform-icon">
+            <i class="fab fa-android"></i>
+          </div>
+          <h3 class="platform-name">Android (APK)</h3>
+          <p class="platform-details">For Android 8.0+ devices</p>
+          <ul>
+            <li>Direct device control</li>
+            <li>No Root access required</li>
+            <li>OTG device management</li>
+          </ul>
+          <a href="https://github.com/Shrey113/Adb-Device-Manager-download-page/releases/download/Awesome_App_V_0.2/NotificationEvent.apk" class="download-btn" id="android-download-btn">
+            <i class="fas fa-download"></i> Download APK
+          </a>
+          <p class="system-requirements">Version 0.9.5 • 12.3 MB</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="requirements">
+    <div class="container">
+      <h2>System Requirements</h2>
+      <div class="requirements-grid">
+        <div class="requirement-card">
+          <h3>Windows Requirements</h3>
+          <ul>
+            <li>Windows 10 or Windows 11 (64-bit)</li>
+            <li>4 GB RAM (8 GB recommended)</li>
+            <li>100 MB free disk space</li>
+            <li>USB port or Wi-Fi capability for device connection</li>
+            <li>Administrator privileges for installation</li>
+          </ul>
+        </div>
+        <div class="requirement-card">
+          <h3>Android Requirements</h3>
+          <ul>
+            <li>Android 9.0 or higher</li>
+            <li>Minimum 3 GB RAM</li>
+            <li>100 MB free storage space</li>
+            <li>USB OTG support (for connecting other devices)</li>
+            <li>Developer options enabled</li>
+            <li>NO Root access supported (for advanced features)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<!-- Installation Steps Modal -->
+<div class="modal-overlay" id="installation-modal">
+  <div class="modal">
+    <!-- Modal Header -->
+    <div class="modal-header">
+      <h2 class="modal-title">APK Installation Guide</h2>
+      <button class="modal-close" id="close-modal" aria-label="Close">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+
+    <!-- Modal Body -->
+    <div class="modal-body">
+      <!-- Step Container (Steps will be generated here by JS) -->
+      <div class="steps-container">
+        <!-- Steps will be injected dynamically -->
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+  <!-- Image Popup -->
+  <div class="image-popup-overlay" id="image-popup-overlay">
+    <div class="image-popup">
+      <button class="image-popup-close" id="image-popup-close">
+        <i class="fas fa-times"></i>
+      </button>
+      <img id="popup-image" src="" alt="Installation Step">
+    </div>
+  </div>
+
+  <section class="cta">
+    <div class="container">
+      <h2>Need help with installation?</h2>
+      <p>Check out our guides and documentation for installation instructions and troubleshooting.</p>
+      <a href="https://github.com/Shrey113/Adb-Device-Manager" target="_blank" class="btn btn-primary">View Documentation</a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-logo">
+          <i class="fas fa-mobile-alt"></i>
+          <span>ADB Device Manager</span>
+        </div>
+        <p class="copyright">© 2025 ADB Device Manager. All rights reserved.</p>
+        <div class="footer-links">
+          <a href="https://github.com/Shrey113/Adb-Device-Manager" target="_blank"><i class="fab fa-github"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+  
+    // Auto-scroll to download section after 100 ms
+    window.addEventListener('load', function () {
+      setTimeout(function () {
+        const downloadSection = document.querySelector('.download-section');
+        if (downloadSection) {
+          downloadSection.scrollIntoView({
+            behavior: 'smooth',
+            block: 'center'
+          });
+        }
+      }, 100);
+    });
+  
+    const installationModal = document.getElementById('installation-modal');
+    const androidDownloadBtn = document.getElementById('android-download-btn');
+    const closeModalBtn = document.getElementById('close-modal');
+    const stepsContainer = document.querySelector('.steps-container');
+    const imagePopupOverlay = document.getElementById('image-popup-overlay');
+    const popupImage = document.getElementById('popup-image');
+    const closeImagePopup = document.getElementById('image-popup-close');
+  
+    let navDots;
+    let navProgress;
+    let currentStep = 1;
+    const totalSteps = 5;
+  
+    const stepsData = [
+      {
+        id: 1,
+        title: "APK Installer",
+        description: "This app will install APK files for \"adb_devices.exe\". You can delete it after installation is complete. Click \"Install APK\" to proceed.",
+        image: "installer_step/step_1.png"
+      },
+      {
+        id: 2,
+        title: "Installation Dialog",
+        description: "A notification will appear asking if you want to install this app. Click \"Install\" to continue with the installation process.",
+        image: "installer_step/step_2.png"
+      },
+      {
+        id: 3,
+        title: "App Permissions",
+        description: "Configure access to device features. The app requires certain permissions to properly manage your Android device. All permissions shown are necessary for full functionality.",
+        image: "installer_step/step_3.png"
+      },
+      {
+        id: 4,
+        title: "Google Sign-In",
+        description: "Sign in with your Google account to continue. Your profile data will only be shared with a single authorized app and a secure local Windows tool through adb_devices.exe.",
+        image: "installer_step/step_4.png"
+      },
+      {
+        id: 5,
+        title: "Installation Complete",
+        description: "The app will now set up a background service for adb_devices.exe that runs even when the app is closed, allowing for continuous device management and notification handling.",
+        image: "installer_step/step_5.png"
+      }
+    ];
+  
+    function initializeSteps() {
+      stepsContainer.innerHTML = '';
+  
+      stepsData.forEach((step, index) => {
+        const stepCard = document.createElement('div');
+        stepCard.className = `step-card ${index === 0 ? 'active' : ''}`;
+        stepCard.id = `step-${step.id}`;
+  
+        stepCard.innerHTML = `
+          <div class="step-image-container">
+            <img src="${step.image}" class="step-image" alt="${step.title}" data-img="${step.image}">
+          </div>
+          <div class="step-info">
+            <div class="step-content">
+              <h3 class="step-title">${step.title}</h3>
+              <p class="step-description">${step.description}</p>
+            </div>
+            <div class="step-navigation">
+              <button class="nav-button prev-btn prev-step" ${index === 0 ? 'disabled' : ''}><i class="fas fa-arrow-left"></i> Previous</button>
+              <div class="nav-dots">
+                <div class="nav-progress"></div>
+                ${stepsData.map((_, i) => `<span class="nav-dot ${i === 0 ? 'active' : ''}" data-step="${i + 1}"></span>`).join('')}
+              </div>
+              <button class="nav-button next-btn next-step">${index === stepsData.length - 1 ? 'Finish <i class="fas fa-check"></i>' : 'Next <i class="fas fa-arrow-right"></i>'}</button>
+            </div>
+          </div>
+        `;
+  
+        stepsContainer.appendChild(stepCard);
+      });
+  
+      setupEventListeners();
+    }
+  
+    function setupEventListeners() {
+      document.querySelectorAll('.next-step').forEach(btn => {
+        btn.addEventListener('click', () => {
+          if (currentStep < totalSteps) {
+            showStep(currentStep + 1);
+          } else {
+            installationModal.style.display = 'none';
+            document.body.style.overflow = '';
+          }
+        });
+      });
+  
+      document.querySelectorAll('.prev-step').forEach(btn => {
+        btn.addEventListener('click', () => {
+          if (currentStep > 1) {
+            showStep(currentStep - 1);
+          }
+        });
+      });
+  
+      navDots = document.querySelectorAll('.nav-dot');
+      navDots.forEach(dot => {
+        dot.addEventListener('click', function () {
+          const step = parseInt(this.getAttribute('data-step'));
+          showStep(step);
+        });
+      });
+  
+      document.querySelectorAll('.step-image').forEach(img => {
+        img.addEventListener('click', function () {
+          const imgSrc = this.getAttribute('data-img');
+          popupImage.src = imgSrc;
+          imagePopupOverlay.style.display = 'flex';
+        });
+      });
+    }
+  
+    function showStep(stepNumber) {
+      const stepCards = document.querySelectorAll('.step-card');
+      stepCards.forEach(card => card.classList.remove('active'));
+      document.getElementById(`step-${stepNumber}`).classList.add('active');
+  
+      currentStep = stepNumber;
+  
+      // Update all navigation dots
+      navDots.forEach(dot => {
+        const dotStep = parseInt(dot.getAttribute('data-step'));
+        dot.classList.toggle('active', dotStep === stepNumber);
+        dot.classList.toggle('completed', dotStep < stepNumber);
+      });
+  
+      // Update all progress bars
+      const progressBars = document.querySelectorAll('.nav-progress');
+      progressBars.forEach(progress => {
+        const percent = ((stepNumber - 1) / (totalSteps - 1)) * 100;
+        progress.style.width = `${percent}%`;
+      });
+  
+      // Update button states
+      document.querySelectorAll('.prev-step').forEach(btn => {
+        btn.disabled = stepNumber === 1;
+      });
+  
+      document.querySelectorAll('.next-step').forEach(btn => {
+        if (stepNumber === totalSteps) {
+          btn.innerHTML = 'Finish <i class="fas fa-check"></i>';
+          btn.classList.add('finish-btn');
+        } else {
+          btn.innerHTML = 'Next <i class="fas fa-arrow-right"></i>';
+          btn.classList.remove('finish-btn');
+        }
+      });
+    }
+  
+    androidDownloadBtn.addEventListener('click', function (e) {
+      // Start download immediately
+      const downloadUrl = androidDownloadBtn.getAttribute('href');
+      
+      // Show installation modal at the same time
+      installationModal.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+      showStep(1);
+    });
+  
+    closeModalBtn.addEventListener('click', function () {
+      installationModal.style.display = 'none';
+      document.body.style.overflow = '';
+    });
+  
+    installationModal.addEventListener('click', function (e) {
+      if (e.target === installationModal) {
+        installationModal.style.display = 'none';
+        document.body.style.overflow = '';
+      }
+    });
+  
+    closeImagePopup.addEventListener('click', function () {
+      imagePopupOverlay.style.display = 'none';
+    });
+  
+    imagePopupOverlay.addEventListener('click', function (e) {
+      if (e.target === imagePopupOverlay) {
+        imagePopupOverlay.style.display = 'none';
+      }
+    });
+  
+    initializeSteps();
+    showStep(1);
+  </script>
+  
+</body>
+</html> 

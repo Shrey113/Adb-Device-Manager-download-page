@@ -1,1 +1,0 @@
-# Adb-Device-Manager-download-page
