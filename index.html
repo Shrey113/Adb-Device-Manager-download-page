@@ -1,161 +1,1031 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ADB Device Manager</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADB Device Manager</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <!-- GSAP Animation Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <!-- Base styles to ensure consistent appearance -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        body {
+            background-color: #001e13;
+            background-color: #000e09;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .section-container {
+            min-height: 100px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .loader {
+            text-align: center;
+            padding: 20px;
+            font-size: 16px;
+                }
+      </style>
+      <!-- Individual section stylesheets -->
+    <link rel="stylesheet" href="section_1.css">
+    <link rel="stylesheet" href="section_2.css">
+    <link rel="stylesheet" href="section_3.css">
+    <link rel="stylesheet" href="section_4.css">
+    <link rel="stylesheet" href="section_5.css">
 </head>
 <body>
-  <header>
-    <div class="container">
-      <div class="header-content">
-        <div class="logo">
-          <i class="fas fa-mobile-alt"></i>
-          <span>ADB Device Manager</span>
-        </div>
-        <nav>
-          <ul>
-            <li><a href="#features">Features</a></li>
-            <li><a href="#how-it-works">How It Works</a></li>
-            <li><a href="download.html" class="btn btn-primary">Download</a></li>
-          </ul>
-        </nav>
-      </div>
-    </div>
-  </header>
+    <!-- Section containers -->
+    <div id="section1" class="section-container">
+            <header>
+                <div class="container">
+                    <div class="navbar">
+                        <div class="logo fade-in">
+                            <div class="app-icon">
+                                <img src="images/app_png.png" alt="ADB Manager" style="width: 51px; height: 51px; border-radius: 6px;">
+                            </div>
+                            &nbsp;
+                            <div class="logo-text">ADB Manager</div>
+                        </div>
+                        <div class="cta fade-in">
+                            <button class="launch-btn" onclick="window.location.href='installation_guide.html'">Installation Guide</button>
+                            <button class="launch-btn" onclick="window.location.href='download.html'">Download App</button>
+                        </div>
+                    </div>
+                </div>
+            </header>
+        
+            <section class="hero">
+                <div class="container">
+                    <h1 class="slide-up">Android Device Management for Windows</h1>
+                    <p class="subtitle slide-up">Control multiple Android devices from your Windows PC with our powerful management tool.</p>
+                    <div class="hero-cta slide-up">
+                        <button class="launch-btn" onclick="window.location.href='download.html'">Download Now</button>
+                    </div>
+                </div>
+            </section>
+        
+            <section class="dashboard">
+                <div class="container">
+                    <div class="dashboard-grid">
+                        <div class="card attacks-card scale-in">
+                            <div class="card-header">
+                                <h3>Supported Devices</h3>
+                                <div class="arrow-icon">↗</div>
+                            </div>
+                            <div class="card-content">
+                                <div class="metric">100+</div>
+                                <div class="percentage positive">All Android 5.0+</div>
+                            </div>
+                        </div>
+        
+                        <div class="device-mockup scale-in">
+                            <div class="device-frame">
+                                <div class="device-notch"></div>
+                                <div class="device-screen">
+                                    <img src="devices img/main_home_page.jpg" alt="ADB Device Manager Home" class="app-screen screen-main active" data-screen="main">
+                                    <img src="devices img/discover windws.jpg" alt="Discover Windows" class="app-screen screen-windows" data-screen="windows">
+                                    <img src="devices img/profile page.jpg" alt="User Profile" class="app-screen screen-profile" data-screen="profile">
+                                    <img src="devices img/windows click.jpg" alt="Windows Connection" class="app-screen screen-windows-connect" data-screen="windows-connect">
+                                    
+                                    <!-- Beta popup inside device frame -->
+                                    <div class="beta-popup-overlay">
+                                        <div class="beta-popup-content">
+                                            <img src="devices img/beta version button clcik.jpg" alt="Beta Version Features" class="beta-popup-img">
+                                            <button class="beta-close-btn"><i class="bi bi-x-lg"></i></button>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="app-nav-buttons">
+                                        <button class="app-button back-button" data-target="main"><i class="bi bi-arrow-left"></i></button>
+                                        <button class="app-button beta-button" data-target="beta"></button>
+                                        <button class="app-button discover-windows-button" onclick="window.location.href='/download.html'"></button>
+                                        <button class="app-button profile-button" data-target="profile"></button>
+                                        <button class="app-button windows-discover-button" data-target="windows-connect"></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+        
+                        <div class="card alerts-card scale-in">
+                            <div class="card-header">
+                                <h3>Key Features</h3>
+                                <div class="more-icon">⋮</div>
+                            </div>
+                            <div class="card-content">
+                                <div class="alert">
+                                    <div class="alert-dot critical"></div>
+                                    <div class="alert-type">New</div>
+                                    <div class="alert-desc">Multi-Device Support</div>
+                                </div>
+                                <div class="alert">
+                                    <div class="alert-dot high"></div>
+                                    <div class="alert-type">Popular</div>
+                                    <div class="alert-desc">Wireless Connection</div>
+                                </div>
+                                <div class="alert">
+                                    <div class="alert-dot high"></div>
+                                    <div class="alert-type">Advanced</div>
+                                    <div class="alert-desc">Desktop Mode Experience</div>
+                                </div>
+                            </div>
+                        </div>
+        
+                        <div class="card alert-levels-card scale-in">
+                            <div class="card-header">
+                                <h3>User Ratings</h3>
+                                <div class="arrow-icon">↗</div>
+                            </div>
+                            <div class="card-content">
+                                <div class="alert-chart">
+                                    <div class="chart-labels">
+                                        <div class="chart-label">5 Stars</div>
+                                        <div class="chart-label">4 Stars</div>
+                                        <div class="chart-label">3 Stars</div>
+                                    </div>
+                                    <div class="chart-bars">
+                                        <div class="chart-bar critical-bar" style="width: 0%;"></div>
+                                        <div class="chart-bar high-bar" style="width: 0%;"></div>
+                                        <div class="chart-bar low-bar" style="width: 0%;"></div>
+                                    </div>
+                                    <div class="chart-percentages">
+                                        <div class="chart-percent">65%</div>
+                                        <div class="chart-percent">25%</div>
+                                        <div class="chart-percent">10%</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+        
+                        <div class="card remediated-card scale-in">
+                            <div class="card-header">
+                                <h3>Active Installations</h3>
+                                <div class="arrow-icon">↗</div>
+                            </div>
+                            <div class="card-content">
+                                <div class="metric">10K+</div>
+                                <div class="percentage positive">+15.7%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        
+            <section class="clients">
+                <div class="container">
 
-  <section class="hero">
-    <div class="container">
-      <div class="hero-content">
-        <h1>Manage Your Android Devices With Ease</h1>
-        <p>ADB Device Manager is a powerful tool to control, monitor, and automate tasks across multiple Android devices</p>
-        <div class="hero-buttons">
-          <a href="download.html" class="btn btn-primary">Download Now</a>
-          <a href="#features" class="btn btn-secondary">Learn More</a>
-        </div>
-      </div>
-      <div class="hero-image">
-        <img src="https://i.imgur.com/7bw21aK.png" alt="ADB Device Manager Screenshot">
-      </div>
+                    <div class="client-logos">
+                        <div class="client-logo flutter fade-in">
+                            <i class="bi bi-cpu" style="color: #61DAFB;"></i> Flutter
+                        </div>
+                        <div class="client-logo miro fade-in">
+                            <i class="bi bi-android2" style="color: #3DDC84;"></i> Android
+                        </div>
+                        <div class="client-logo shopify fade-in">
+                            <i class="bi bi-terminal" style="color: #FFD43B;"></i> Python
+                        </div>
+                        <div class="client-logo culture-amp fade-in">
+                            <i class="bi bi-windows" style="color: #0078D6;"></i> Windows
+                        </div>
+                        <div class="client-logo atlassian fade-in">
+                            <i class="bi bi-phone" style="color: #00C7B7;"></i> ADB
+                        </div>
+                    </div>
+    
+                </div>
+            </section>
+      
     </div>
-  </section>
+    
+    <div id="section2" class="section-container">
+        <section class="features">
+            <div class="container">
+                <div class="features-header">
+                    <div class="icon-container scale-in">
+                        <i class="bi bi-shield-lock-fill" style="font-size: 48px; color: #3DDC84;"></i>
+                    </div>
+                    <div class="tagline slide-up">KEY FEATURES</div>
+                    <h2 class="slide-up">Why choose us?</h2>
+                    <p class="subtitle slide-up">The ultimate tool for managing multiple Android devices from your Windows PC,perfect for developers, testers, and power users.</p>
+                </div>
+    
+                <div class="features-grid">
+                    <div class="feature-card slide-up">
+                        <div class="feature-icon">
+                            <i class="bi bi-phone" style="color: #3DDC84; font-size: 32px;"></i>
 
-  <section id="features" class="features">
-    <div class="container">
-      <h2>Powerful Features</h2>
-      <div class="features-grid">
-        <div class="feature-card">
-          <div class="feature-icon">
-            <i class="fas fa-mobile-screen"></i>
-          </div>
-          <h3>Multi-Device Support</h3>
-          <p>Connect and manage multiple Android devices simultaneously, perfect for developers and testers</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">
-            <i class="fas fa-wifi"></i>
-          </div>
-          <h3>Wireless Debugging</h3>
-          <p>Connect to devices over Wi-Fi, eliminating the need for physical USB connections</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">
-            <i class="fas fa-terminal"></i>
-          </div>
-          <h3>Command Console</h3>
-          <p>Execute ADB commands with an intuitive interface and see results in real-time</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">
-            <i class="fas fa-file-download"></i>
-          </div>
-          <h3>App Installation</h3>
-          <p>Install, update, or remove applications on connected devices with ease</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">
-            <i class="fas fa-camera"></i>
-          </div>
-          <h3>Screenshot Capture</h3>
-          <p>Take screenshots remotely from connected devices with a single click</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">
-            <i class="fas fa-file-code"></i>
-          </div>
-          <h3>Log Viewer</h3>
-          <p>View, filter, and save device logs for debugging and analysis</p>
-        </div>
-      </div>
+                        </div>
+                        <h3>Multi-Device Management</h3>
+                        <p>Connect multiple Android devices simultaneously via USB, QR code, or wireless. Switch seamlessly between them with a single click.</p>
+                    </div>
+    
+                    <div class="feature-card slide-up">
+                        <div class="feature-icon">
+                            <i class="bi bi-cast" style="color: #3DDC84; font-size: 32px;"></i>
+                        </div>
+                        <h3>Desktop Mode Experience</h3>
+                        <p>Transform your Android experience with our desktop mode. Run Android apps in Windows-like windows with full drag & drop support.</p>
+                    </div>
+    
+                    <div class="feature-card slide-up">
+                        <div class="feature-icon">
+                            <i class="bi bi-controller" style="color: #3DDC84; font-size: 32px;"></i>
+
+                        </div>
+                        <h3>Complete Device Control</h3>
+                        <p>Take full control of your Android devices directly from your Windows PC with screen mirroring and real-time interaction.</p>
+                    </div>
+    
+                    <div class="feature-card slide-up">
+                        <div class="feature-icon">
+                            <i class="bi bi-arrow-repeat" style="color: #3DDC84; font-size: 32px;"></i>
+                        </div>                        
+                        
+                        <h3>Deep Windows Integration</h3>
+                        <p>Experience seamless Android-Windows integration with background services, startup support, and real-time notifications.</p>
+                    </div>
+    
+                    <div class="feature-card slide-up">
+                        <div class="feature-icon">
+                            <i class="bi bi-music-note-beamed" style="color: #3DDC84; font-size: 32px;"></i>
+
+                        </div>
+                        <h3>Media Control Center</h3>
+                        <p>Control all your Android media playback directly from Windows. Manage Spotify, YouTube, and other media apps without touching your device.</p>
+                    </div>
+    
+                    <div class="feature-card slide-up">
+                        <div class="feature-icon">
+                            <i class="bi bi-bell" style="color: #3DDC84; font-size: 32px;"></i>
+
+                        </div>
+                        <h3>Real-Time Notification Center</h3>
+                        <p>View and respond to all Android notifications directly from your Windows desktop. Never miss an important message again.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
-  </section>
+    
+    <div id="section3" class="section-container">
+        <section class="tools">
+            <div class="container">
+                <div class="tools-header">
+                    <h2 class="slide-up">All your Android tools<br>in one place</h2>
+                    <p class="subtitle slide-up">Our app provides powerful ADB functionality and multi-device management,<br>helping you work more efficiently with Android devices on Windows.</p>
+                </div>
+    
+                <div class="tools-grid">
+                    <!-- AI for absolute security card -->
+                    <div class="tool-card guarantee-card scale-in">
+                        <div class="tool-icon" style="background: linear-gradient(135deg, #0bc77a 0%, #3DDC84 100%); box-shadow: 0 2px 12px rgba(61,220,132,0.15);">
+                            <i class="bi bi-cpu" style="font-size: 32px; color: #fff;"></i>
+                        </div>
+                        <h3>AI-Powered Controls</h3>
+                        <p>Our platform utilizes intelligent voice commands and smart terminal features with ADB command prediction.</p>
+                    </div>
+    
+                    <!-- Security Guarantee card -->
+                    <div class="tool-card guarantee-card scale-in">
+                        <div class="tool-icon" style="background: linear-gradient(135deg, #0bc77a 0%, #3DDC84 100%); box-shadow: 0 2px 12px rgba(61,220,132,0.15);">
+                            <i class="bi bi-shield-lock-fill" style="font-size: 32px; color: #fff;"></i>
+                        </div>
+                        <h3>Full Compatibility</h3>
+                        <p>Works with all Android devices version 5.0 and higher.</p>
+                    </div>
+                    <!-- React faster card with speedometer -->
+                    <div class="tool-card guarantee-card scale-in">
+                        <div class="tool-icon" style="background: linear-gradient(135deg, #0bc77a 0%, #3DDC84 100%); box-shadow: 0 2px 12px rgba(61,220,132,0.15);">
+                            <i class="bi bi-bluetooth" style="font-size: 32px; color: #fff;"></i>
+                        </div>
+                        <h3>Bluetooth Audio Connector</h3>
+                        <p>Route your Android device's audio through your Windows PC with low-latency transmission.</p>
+                    </div>
+    
+                    <!-- Instant threat alerts card -->
+                    <div class="tool-card guarantee-card scale-in">
+                        <div class="tool-icon" style="background: linear-gradient(135deg, #0bc77a 0%, #3DDC84 100%); box-shadow: 0 2px 12px rgba(61,220,132,0.15);">
+                            <i class="bi bi-folder2-open" style="font-size: 48px; color: #fff;"></i>
+                        </div>
+                        <h3>File System Management</h3>
+                        <p>Complete access to your Android device file system with drag & drop file transfers between Windows and Android.</p>
+                    </div>
+                    <!-- Military-grade encryption card -->
+                    <div class="tool-card guarantee-card scale-in">
+                        <div class="tool-icon" style="background: linear-gradient(135deg, #0bc77a 0%, #3DDC84 100%); box-shadow: 0 2px 12px rgba(61,220,132,0.15);">
+                            <i class="bi bi-chat-dots" style="font-size: 40px; color: #fff;"></i>
+                        </div>
+                            <h3>Smart Feedback System</h3>
+                            <p>Get intelligent ADB command suggestions and real-time feedback on your device operations.</p>
+                    </div>
+                    <!-- Other features card -->
+                    <div class="tool-card guarantee-card scale-in">
+                    <div class="tool-icon" style="background: linear-gradient(135deg, #0bc77a 0%, #3DDC84 100%); box-shadow: 0 2px 12px rgba(61,220,132,0.15);">
+                    <i class="bi bi-plus-lg" style="font-size: 40px; color: #fff;"></i>
+                    </div>
+                    <h3>Other Features</h3>
+                    <p>We are constantly adding new features to our app to make your experience better.</p>
+                    </div>
 
-  <section id="how-it-works" class="how-it-works">
-    <div class="container">
-      <h2>How It Works</h2>
-      <div class="steps">
-        <div class="step">
-          <div class="step-number">1</div>
-          <h3>Download & Install</h3>
-          <p>Download the application for your platform and follow the simple installation process</p>
-        </div>
-        <div class="step">
-          <div class="step-number">2</div>
-          <h3>Connect Devices</h3>
-          <p>Connect your Android devices via USB or set up wireless debugging</p>
-        </div>
-        <div class="step">
-          <div class="step-number">3</div>
-          <h3>Manage & Control</h3>
-          <p>Use the intuitive interface to manage your devices and execute commands</p>
-        </div>
-      </div>
+                </div>
+            </div>
+        </section>
     </div>
-  </section>
-
-  <section class="cta">
-    <div class="container">
-      <h2>Ready to simplify your Android device management?</h2>
-      <p>Download ADB Device Manager today and take control of your devices.</p>
-      <div style="display: flex; gap: 20px; justify-content: center; margin-top: 30px;">
-        <a href="windows_download.html" class="btn btn-primary">
-          <i class="fab fa-windows"></i> Windows Download
-        </a>
-        <a href="android_download.html" class="btn btn-primary">
-          <i class="fab fa-android"></i> Android Download
-        </a>
-      </div>
+    
+    <div id="section4" class="section-container">
+        <section class="testimonials">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="slide-up">What our users say about us</h2>
+                </div>
+                
+                <div class="testimonial-grid">
+                    <!-- Testimonial 1 -->
+                    <div class="testimonial-card scale-in">
+                        <p class="testimonial-text">Great tool for Android development! I can now control multiple test devices simultaneously, which has drastically improved my workflow.</p>
+                        <div class="testimonial-author">
+                            <div class="profile-circle" style="background-color: #FF5733;">S</div>
+                            <div class="author-name">Shrey Patel</div>
+                        </div>
+                    </div>
+    
+                    <!-- Testimonial 2 -->
+                    <div class="testimonial-card scale-in">
+                        <p class="testimonial-text">The best ADB management solution. I've tried several similar apps, but this one really stands out for its features and ease of use. The wireless connection feature is a game-changer.</p>
+                        <div class="testimonial-author">
+                            <div class="profile-circle" style="background-color: #33A1FF;">A</div>
+                            <div class="author-name">Ankita Sharma</div>
+                        </div>
+                    </div>
+    
+                    <!-- Testimonial 3 -->
+                    <div class="testimonial-card scale-in">
+                        <p class="testimonial-text">This application really surprised me! Everything is intuitive, yet incredibly powerful. The desktop mode for Android apps works flawlessly. Even if you're not a developer, this app makes managing your Android devices so much easier.</p>
+                        <div class="testimonial-author">
+                            <div class="profile-circle" style="background-color: #33FF57;">N</div>
+                            <div class="author-name">Nikita Verma</div>
+                        </div>
+                    </div>
+    
+                    <!-- Testimonial 4 -->
+                    <div class="testimonial-card scale-in">
+                        <p class="testimonial-text">When I first installed the app, I had a few questions about setting up wireless connections. Support helped me figure it out in just a few minutes. This is a huge plus for me, as I often encounter issues with other ADB tools.</p>
+                        <div class="testimonial-author">
+                            <div class="profile-circle" style="background-color: #9933FF;">N</div>
+                            <div class="author-name">Nandu Kumar</div>
+                        </div>
+                    </div>
+    
+                    <!-- Testimonial 5 -->
+                    <div class="testimonial-card scale-in">
+                        <p class="testimonial-text">Our QA team has been using this application for several months now, and the results are impressive. The ability to test across multiple Android devices simultaneously has improved our efficiency significantly.</p>
+                        <div class="testimonial-author">
+                            <div class="profile-circle" style="background-color: #FF33A1;">P</div>
+                            <div class="author-name">Priya Desai</div>
+                        </div>
+                    </div>
+    
+                    <!-- Testimonial 6 -->
+                    <div class="testimonial-card scale-in">
+                        <p class="testimonial-text">Immediately after installation, I noticed how much easier device management became. Being able to control my Android device from my PC is a game changer for productivity.</p>
+                        <div class="testimonial-author">
+                            <div class="profile-circle" style="background-color: #33FFE0;">R</div>
+                            <div class="author-name">Rahul Singh</div>
+                        </div>
+                    </div>
+    
+                    <!-- Testimonial 7 -->
+                    <div class="testimonial-card scale-in">
+                        <p class="testimonial-text">Developer support is top-notch - always answer questions quickly and clearly. They helped me solve a compatibility issue with my older Android device within hours.</p>
+                        <div class="testimonial-author">
+                            <div class="profile-circle" style="background-color: #FFD433;">D</div>
+                            <div class="author-name">Divya Malhotra</div>
+                        </div>
+                    </div>
+    
+                    <!-- Testimonial 8 -->
+                    <div class="testimonial-card scale-in">
+                        <p class="testimonial-text">Having struggled with ADB command line for years, this graphical interface is exactly what I needed. The media control and notification features are fantastic additions I didn't know I wanted!</p>
+                        <div class="testimonial-author">
+                            <div class="profile-circle" style="background-color: #3399FF;">A</div>
+                            <div class="author-name">Arjun Kapoor</div>
+                        </div>
+                    </div>
+    
+                    <!-- Testimonial 9 -->
+                    <div class="testimonial-card scale-in">
+                        <p class="testimonial-text">The interface is user-friendly and easy to understand, even for non-developers. I use it primarily for file transfers and screen mirroring, and it's the perfect balance between simplicity and functionality.</p>
+                        <div class="testimonial-author">
+                            <div class="profile-circle" style="background-color: #FF9933;">S</div>
+                            <div class="author-name">Sneha Gupta</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
-  </section>
-
-  <footer>
-    <div class="container">
-      <div class="footer-content">
-        <div class="footer-logo">
-          <i class="fas fa-mobile-alt"></i>
-          <span>ADB Device Manager</span>
+    
+    <div id="section5" class="section-container">
+        <section class="pricing">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="slide-up">Choose the perfect plan</h2>
+                    <p class="subtitle slide-up">Whatever your needs, we offer plans that are right for you.<br>Start with basic or unlock the full potential with premium solutions.</p>
+                </div>
+                
+                <div class="pricing-grid">
+                    <!-- Basic Plan -->
+                    <div class="pricing-card scale-in">
+                        <div class="plan-name"><i class="fas fa-star-half-alt"></i> Basic plan</div>
+                        <div class="plan-price">
+                            <span class="price">Free</span>
+                        </div>
+                        <div class="plan-description">One Device ADB - NO Active App Connection</div>
+                        
+                        <div class="plan-features">
+                            <div class="features-title">Basic plan includes</div>
+                            <ul class="features-list">
+                                <li>
+                                    <div class="check-icon"><i class="fas fa-check"></i></div>
+                                    <span>Limited keyboard shortcuts only</span>
+                                </li>
+                                <li>
+                                    <div class="check-icon"><i class="fas fa-times"></i></div>
+                                    <span>No notification control</span>
+                                </li>
+                                <li>
+                                    <div class="check-icon"><i class="fas fa-times"></i></div>
+                                    <span>No media control</span>
+                                </li>
+                                <li>
+                                    <div class="check-icon"><i class="fas fa-times"></i></div>
+                                    <span>No multi-device support</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <br>
+                    </div>
+                    
+                    <!-- Premium Plan -->
+                    <div class="pricing-card featured scale-in">
+                        <div class="premium-badge"><i class="fas fa-crown"></i> You get a Free Trial</div>
+                        <div class="plan-name"><i class="fas fa-star"></i> Premium plan</div>
+                        <div class="plan-price">
+                            <span class="price">Rs.199<span class="period">/month</span></span>
+                        </div>
+                        <div class="plan-description">One Device ADB - Full App Integration</div>
+                        
+                        <div class="plan-features">
+                            <div class="features-title">Premium plan includes</div>
+                            <ul class="features-list">
+                                <li>
+                                    <div class="check-icon"><i class="fas fa-check"></i></div>
+                                    <span>All standard keyboard shortcuts</span>
+                                </li>
+                                <li>
+                                    <div class="check-icon"><i class="fas fa-check"></i></div>
+                                    <span>Notification control on "1 device" only</span>
+                                </li>
+                                <li>
+                                    <div class="check-icon"><i class="fas fa-check"></i></div>
+                                    <span>Media control on "1 device" only</span>
+                                </li>
+                                <li>
+                                    <div class="check-icon"><i class="fas fa-times"></i></div>
+                                    <span>No multi-device support</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <br>
+                    </div>
+                    
+                    <!-- Super Premium Plan -->
+                    <div class="pricing-card scale-in">
+                        <div class="plan-name"><i class="fas fa-star"></i><i class="fas fa-star"></i> Super Premium plan</div>
+                        <div class="plan-price">
+                            <span class="price">Rs.499<span class="period">/month</span></span>
+                        </div>
+                        <div class="plan-description">Unlimited Devices - Full Control</div>
+                        
+                        <div class="plan-features">
+                            <div class="features-title">Super Premium plan includes</div>
+                            <ul class="features-list">
+                                <li>
+                                    <div class="check-icon"><i class="fas fa-check"></i></div>
+                                    <span>All advanced keyboard shortcuts</span>
+                                </li>
+                                <li>
+                                    <div class="check-icon"><i class="fas fa-check"></i></div>
+                                    <span>Notification control on "Unlimited devices"</span>
+                                </li>
+                                <li>
+                                    <div class="check-icon"><i class="fas fa-check"></i></div>
+                                    <span>Media control on "Unlimited devices"</span>
+                                </li>
+                                <li>
+                                    <div class="check-icon"><i class="fas fa-check"></i></div>
+                                    <span>Multi-device screenshot capability</span>
+                                </li>
+                                <li>
+                                    <div class="check-icon"><i class="fas fa-check"></i></div>
+                                    <span>Multi-device operation support</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </section>
+            <!-- Footer -->
+     <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="logo">
+                        <div class="app-icon">
+                            <img src="images/app_png.png" alt="ADB Manager" style="width: 24px; height: 24px;">
+                        </div>
+                        <div class="logo-text">ADB Manager</div>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4><i class="fas fa-cube"></i> Product</h4>
+                        <ul>
+                            <li><a href="#"><i class="fas fa-list"></i> Features</a></li>
+                            <li><a href="#"><i class="fas fa-plug"></i> Integrations</a></li>
+                            <li><a href="#"><i class="fas fa-tag"></i> Pricing</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4><i class="fas fa-building"></i> Company</h4>
+                        <ul>
+                            <li><a href="#"><i class="fas fa-users"></i> Our team</a></li>
+                            <li><a href="#"><i class="fas fa-heart"></i> Our values</a></li>
+                            <li><a href="#"><i class="fas fa-rss"></i> Blog</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4><i class="fas fa-book"></i> Resources</h4>
+                        <ul>
+                            <li><a href="#"><i class="fas fa-download"></i> Downloads</a></li>
+                            <li><a href="#"><i class="fas fa-envelope"></i> Contact</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="copyright">
+                    <i class="bi bi-c-circle"></i> 2025 Android ADB Multi-Device Manager Team. All rights reserved.
+                </div>
+                <div class="social-links">
+                    <a href="#" class="social-link">
+                        <i class="bi bi-discord" style="font-size: 24px; color: #3DDC84;"></i>
+                    </a>
+                    <a href="#" class="social-link">
+                        <i class="bi bi-instagram" style="font-size: 24px; color: #3DDC84;"></i>
+                    </a>
+                    <a href="#" class="social-link">
+                        <i class="bi bi-youtube" style="font-size: 24px; color: #3DDC84;"></i>
+                    </a>
+                    <a href="#" class="social-link">
+                        <i class="bi bi-github" style="font-size: 24px; color: #3DDC84;"></i>
+                    </a>
+                </div>
+            </div>
         </div>
-        <p class="copyright">© 2025 ADB Device Manager. All rights reserved.</p>
-        <div class="footer-links">
-          <a href="https://github.com/Shrey113/Adb-Device-Manager-download-page" target="_blank"><i class="fab fa-github"></i></a>
-        </div>
-      </div>
+    </footer>
     </div>
-  </footer>
 
-  <script>
-    // Smooth scrolling for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        document.querySelector(this.getAttribute('href')).scrollIntoView({
-          behavior: 'smooth'
+    <!-- GSAP Animation Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Register ScrollTrigger with GSAP
+            gsap.registerPlugin(ScrollTrigger);
+            
+            // Navbar animations
+            gsap.to('.fade-in', {
+                opacity: 1,
+                duration: 1,
+                stagger: 0.2,
+                ease: 'power2.out'
+            });
+            
+            // Hero animations
+            gsap.to('.slide-up', {
+                y: 0,
+                opacity: 1,
+                duration: 1,
+                stagger: 0.2,
+                ease: 'power2.out'
+            });
+            
+            // Dashboard card animations
+            gsap.to('.scale-in', {
+                scale: 1,
+                opacity: 1,
+                duration: 0.8,
+                stagger: 0.1,
+                ease: 'back.out(1.7)'
+            });
+            
+            // Chart bars animation
+            gsap.to('.chart-bar.critical-bar', {
+                width: '65%',
+                duration: 1.5,
+                delay: 0.5,
+                ease: 'power2.out'
+            });
+            
+            gsap.to('.chart-bar.high-bar', {
+                width: '25%',
+                duration: 1.2,
+                delay: 0.7,
+                ease: 'power2.out'
+            });
+            
+            gsap.to('.chart-bar.low-bar', {
+                width: '10%',
+                duration: 1,
+                delay: 0.9,
+                ease: 'power2.out'
+            });
+            
+            // Section animations with ScrollTrigger
+            gsap.utils.toArray('.section-container').forEach((section, i) => {
+                // Section header animations
+                gsap.to(section.querySelectorAll('.tagline, h2, .subtitle'), {
+                    scrollTrigger: {
+                        trigger: section,
+                        start: 'top 80%'
+                    },
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.8,
+                    stagger: 0.2,
+                    ease: 'power2.out'
+                });
+                
+                // Section content animations
+                gsap.to(section.querySelectorAll('.scale-in'), {
+                    scrollTrigger: {
+                        trigger: section,
+                        start: 'top 70%'
+                    },
+                    scale: 1,
+                    opacity: 1,
+                    duration: 0.8,
+                    stagger: 0.1,
+                    ease: 'back.out(1.7)'
+                });
+                
+                // Feature cards animations
+                gsap.to(section.querySelectorAll('.feature-card, .testimonial-card, .pricing-card'), {
+                    scrollTrigger: {
+                        trigger: section,
+                        start: 'top 70%'
+                    },
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.8,
+                    stagger: 0.1,
+                    ease: 'power2.out'
+                });
+            });
+            
+            // Hover effects for feature cards
+            const featureCards = document.querySelectorAll('.feature-card');
+            featureCards.forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    gsap.to(card, {
+                        y: -10,
+                        duration: 0.3,
+                        ease: 'power2.out'
+                    });
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    gsap.to(card, {
+                        y: 0,
+                        duration: 0.3,
+                        ease: 'power2.out'
+                    });
+                });
+            });
+
+            // Device mockup interactions
+            const deviceScreen = document.querySelector('.device-screen');
+            const appScreens = document.querySelectorAll('.app-screen');
+            const navButtons = document.querySelectorAll('.app-button');
+            const backButton = document.querySelector('.back-button');
+            
+            // Update screen classes when changing screens
+            function updateScreenClasses(targetScreen, animationType) {
+                // If navigating to main, just hide all overlays
+                if (targetScreen === 'main') {
+                    appScreens.forEach(screen => {
+                        if (!screen.classList.contains('screen-main')) {
+                            // Apply exit animation if it's currently active
+                            if (screen.classList.contains('active')) {
+                                screen.classList.remove('active');
+                                screen.classList.add('animating-out');
+                                
+                                // After animation, hide completely
+                                setTimeout(() => {
+                                    screen.classList.remove('animating-out');
+                                    screen.style.display = 'none';
+                                }, 400);
+                            }
+                        }
+                    });
+                    
+                    // Update device screen class
+                    deviceScreen.className = 'device-screen';
+                    deviceScreen.classList.add('on-main-screen');
+                    return;
+                }
+                
+                // Get current active overlay screen (if any)
+                let currentScreen = null;
+                appScreens.forEach(screen => {
+                    if (screen.classList.contains('active') && !screen.classList.contains('screen-main')) {
+                        currentScreen = screen;
+                    }
+                });
+                
+                // Apply exit animation to current overlay screen if it exists
+                if (currentScreen) {
+                    // Remove active class to start animation
+                    currentScreen.classList.remove('active');
+                    
+                    // Add animating-out class for exit animation
+                    currentScreen.classList.add('animating-out');
+                    
+                    // After animation completes, hide screen completely
+                    setTimeout(() => {
+                        currentScreen.classList.remove('animating-out');
+                        currentScreen.style.display = 'none';
+                        
+                        // Now show new overlay screen with entry animation
+                        showOverlayScreen(targetScreen);
+                    }, 400);
+                } else {
+                    // No active overlay screen, just show the target
+                    showOverlayScreen(targetScreen);
+                }
+            }
+
+            function showOverlayScreen(targetScreen) {
+                // Find target screen element
+                const activeScreen = document.querySelector(`.screen-${targetScreen}`);
+                
+                if (activeScreen) {
+                    // Make sure screen is visible before animation
+                    activeScreen.style.display = 'block';
+                    
+                    // Start entry animation
+                    activeScreen.classList.add('animating-in');
+                    
+                    // After animation, set to active state
+                    setTimeout(() => {
+                        activeScreen.classList.add('active');
+                        activeScreen.classList.remove('animating-in');
+                        
+                        // Update device screen class for proper button visibility
+                        deviceScreen.className = 'device-screen';
+                        deviceScreen.classList.add(`on-${targetScreen}-screen`);
+                    }, 500);
+                }
+            }
+
+                                // Screen navigation
+                    navButtons.forEach(button => {
+                        button.addEventListener('click', function(e) {
+                            e.stopPropagation(); // Prevent event bubbling
+                            const targetScreen = this.getAttribute('data-target');
+                            console.log('Navigating to:', targetScreen);
+                            
+                            // Special handling for beta button to show popup instead
+                            if (targetScreen === 'beta') {
+                                // Show beta popup overlay inside device frame
+                                const betaPopup = document.querySelector('.device-screen .beta-popup-overlay');
+                                if (betaPopup) {
+                                    betaPopup.classList.add('active');
+                                }
+                                return; // Skip normal navigation
+                            }
+                            
+                            // Update screen classes with animation
+                            updateScreenClasses(targetScreen);
+                        });
+                    });
+                    
+                    // Handle beta popup close button
+                    const betaCloseBtn = document.querySelector('.beta-close-btn');
+                    if (betaCloseBtn) {
+                        betaCloseBtn.addEventListener('click', function() {
+                            const betaPopup = document.querySelector('.device-screen .beta-popup-overlay');
+                            if (betaPopup) {
+                                betaPopup.classList.remove('active');
+                            }
+                        });
+                    }
+
+                    // Close beta popup when clicking outside content
+                    const betaPopupOverlay = document.querySelector('.device-screen .beta-popup-overlay');
+                    if (betaPopupOverlay) {
+                        betaPopupOverlay.addEventListener('click', function(e) {
+                            if (e.target === betaPopupOverlay) {
+                                betaPopupOverlay.classList.remove('active');
+                            }
+                        });
+                    }
+                    
+                    // Initial setup - show main screen
+                    const mainScreen = document.querySelector('.screen-main');
+                    if (mainScreen) {
+                        mainScreen.classList.add('active');
+                        mainScreen.style.display = 'block';
+                        deviceScreen.classList.add('on-main-screen');
+                    }
+                });
+            </script>
+
+
+
+                <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Register ScrollTrigger with GSAP
+            gsap.registerPlugin(ScrollTrigger);
+            
+            // Navbar animations
+            gsap.to('.fade-in', {
+                opacity: 1,
+                duration: 1,
+                stagger: 0.2,
+                ease: 'power2.out'
+            });
+            
+            // Hero animations
+            gsap.to('.slide-up', {
+                y: 0,
+                opacity: 1,
+                duration: 1,
+                stagger: 0.2,
+                ease: 'power2.out'
+            });
+            
+            // Dashboard card animations
+            gsap.to('.scale-in', {
+                scale: 1,
+                opacity: 1,
+                duration: 0.8,
+                stagger: 0.1,
+                ease: 'back.out(1.7)'
+            });
+            
+            // Chart bars animation
+            gsap.to('.chart-bar.critical-bar', {
+                width: '65%',
+                duration: 1.5,
+                delay: 0.5,
+                ease: 'power2.out'
+            });
+            
+            // Get all DOM elements for interactions
+            const betaButton = document.querySelector('.beta-button');
+            const betaPopupOverlay = document.querySelector('.device-screen .beta-popup-overlay');
+            const betaCloseBtn = document.querySelector('.beta-close-btn');
+            const bodyElement = document.body;
+            
+            // Popup handling is now managed by the screen navigation code
+            
+            // Device mockup interactions
+            const deviceScreen = document.querySelector('.device-screen');
+            const appScreens = document.querySelectorAll('.app-screen');
+            const navButtons = document.querySelectorAll('.app-button');
+            const backButton = document.querySelector('.back-button');
+            
+            // Update screen classes when changing screens
+            function updateScreenClasses(targetScreen, animationType) {
+                // If navigating to main, just hide all overlays
+                if (targetScreen === 'main') {
+                    appScreens.forEach(screen => {
+                        if (!screen.classList.contains('screen-main')) {
+                            // Apply exit animation if it's currently active
+                            if (screen.classList.contains('active')) {
+                                screen.classList.remove('active');
+                                screen.classList.add('animating-out');
+                                
+                                // After animation, hide completely
+                                setTimeout(() => {
+                                    screen.classList.remove('animating-out');
+                                    screen.style.display = 'none';
+                                }, 400);
+                            }
+                        }
+                    });
+                    
+                    // Update device screen class
+                    deviceScreen.className = 'device-screen';
+                    deviceScreen.classList.add('on-main-screen');
+                    return;
+                }
+                
+                // Get current active overlay screen (if any)
+                let currentScreen = null;
+                appScreens.forEach(screen => {
+                    if (screen.classList.contains('active') && !screen.classList.contains('screen-main')) {
+                        currentScreen = screen;
+                    }
+                });
+                
+                // Apply exit animation to current overlay screen if it exists
+                if (currentScreen) {
+                    // Remove active class to start animation
+                    currentScreen.classList.remove('active');
+                    
+                    // Add animating-out class for exit animation
+                    currentScreen.classList.add('animating-out');
+                    
+                    // After animation completes, hide screen completely
+                    setTimeout(() => {
+                        currentScreen.classList.remove('animating-out');
+                        currentScreen.style.display = 'none';
+                        
+                        // Now show new overlay screen with entry animation
+                        showOverlayScreen(targetScreen);
+                    }, 400);
+                } else {
+                    // No active overlay screen, just show the target
+                    showOverlayScreen(targetScreen);
+                }
+            }
+            
+            function showOverlayScreen(targetScreen) {
+                // Find target screen element
+                const activeScreen = document.querySelector(`.screen-${targetScreen}`);
+                
+                if (activeScreen) {
+                    // Make sure screen is visible before animation
+                    activeScreen.style.display = 'block';
+                    
+                    // Start entry animation
+                    activeScreen.classList.add('animating-in');
+                    
+                    // After animation, set to active state
+                    setTimeout(() => {
+                        activeScreen.classList.add('active');
+                        activeScreen.classList.remove('animating-in');
+                        
+                        // Update device screen class for proper button visibility
+                        deviceScreen.className = 'device-screen';
+                        deviceScreen.classList.add(`on-${targetScreen}-screen`);
+                    }, 500);
+                }
+            }
+            
+            // Screen navigation
+            navButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.stopPropagation(); // Prevent event bubbling
+                    const targetScreen = this.getAttribute('data-target');
+                    console.log('Navigating to:', targetScreen);
+                    
+                    // Special handling for beta button to show popup instead
+                    if (targetScreen === 'beta') {
+                        return; // Skip normal navigation since we handle it in beta popup code
+                    }
+                    
+                    // Update screen classes with animation
+                    updateScreenClasses(targetScreen);
+                });
+            });
+            
+            // Initial setup - show main screen
+            const mainScreen = document.querySelector('.screen-main');
+            if (mainScreen) {
+                mainScreen.classList.add('active');
+                mainScreen.style.display = 'block';
+                deviceScreen.classList.add('on-main-screen');
+            }
         });
-      });
-    });
-  </script>
-</body>
-</html>
+    </script>
+  </body>
+</html> 
