@@ -201,30 +201,108 @@
     opacity: 0;
 }
 
-/* Media queries for responsiveness */
- @media (max-width: 900px) {
+/* MOBILE RESPONSIVE STYLES */
+
+/* Tablets and medium devices */
+@media (max-width: 991px) {
+    #section3 .tools {
+        padding: 60px 0;
+    }
+    
+    #section3 h2 {
+        font-size: 36px;
+    }
+    
+    #section3 .subtitle {
+        font-size: 16px;
+        max-width: 90%;
+    }
+    
     #section3 .tools-grid {
         grid-template-columns: repeat(2, 1fr);
-        grid-template-rows: auto;
+        gap: 15px;
     }
     
-    #section3 .ai-card, .alerts-card, .encryption-card {
+    #section3 .ai-card, 
+    #section3 .alerts-card, 
+    #section3 .encryption-card,
+    #section3 .speed-card,
+    #section3 .monitoring-card {
         grid-column: auto;
         grid-row: auto;
     }
     
-    #section3 .mockup-card {
-        grid-column: auto;
-        grid-row: auto;
+    #section3 .tool-card {
+        height: auto;
+        min-height: 250px;
+    }
+    
+    #section3 .tools-header {
+        margin-bottom: 40px;
     }
 }
 
- @media (max-width: 600px) {
+/* Mobile devices */
+@media (max-width: 767px) {
+    #section3 .tools {
+        padding: 40px 0;
+    }
+    
+    #section3 h2 {
+        font-size: 28px;
+    }
+    
+    #section3 .subtitle {
+        font-size: 14px;
+        br {
+            display: none;
+        }
+    }
+    
+    #section3 .tool-card {
+        padding: 20px;
+        min-height: 220px;
+    }
+    
+    #section3 .tool-card h3 {
+        font-size: 18px;
+    }
+    
+    #section3 .tool-card p {
+        font-size: 14px;
+    }
+    
+    #section3 .tool-icon, 
+    #section3 .encryption-icon {
+        width: 48px;
+        height: 48px;
+    }
+    
+    #section3 .tool-icon i {
+        font-size: 24px !important;
+    }
+    
+    #section3 .tools-header {
+        margin-bottom: 30px;
+    }
+}
+
+/* Small mobile devices */
+@media (max-width: 480px) {
     #section3 .tools-grid {
         grid-template-columns: 1fr;
     }
     
     #section3 h2 {
-        font-size: 32px;
+        font-size: 24px;
+    }
+    
+    #section3 .subtitle {
+        font-size: 13px;
+        padding: 0 10px;
+    }
+    
+    #section3 .tool-card {
+        min-height: 200px;
     }
 }

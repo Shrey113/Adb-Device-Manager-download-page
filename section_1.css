@@ -49,8 +49,6 @@
     }
 }
 
-
-
 .container {
     width: 100%;
     max-width: 1200px;
@@ -686,8 +684,9 @@
     grid-column: 1;
     grid-row: 1;
 }
- /* Animation classes */
- .fade-in {
+
+/* Animation classes */
+.fade-in {
     opacity: 0;
 }
 
@@ -777,8 +776,6 @@
     z-index: 25;
 }
 
-
-
 .app-button.back-button {
     top: 8px;
     left: 8px;
@@ -825,7 +822,6 @@
 #section1 .device-screen.on-main-screen .windows-discover-button {
     display: flex !important;
 }
-
 
 .profile-button {
     display: none !important;
@@ -1229,4 +1225,188 @@
 
 .app-screen.active {
     z-index: 10;
+}
+.mobile-menu-toggle {
+    display: none;
+    cursor: pointer;
+    padding: 30px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.1);
+    transition: background-color 0.2s ease;
+}
+.mobile-menu-toggle:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.mobile-menu-toggle i{
+    font-size: 25px;
+    color: #ffffff;
+    transition: color 0.2s ease;
+}
+/* MOBILE RESPONSIVE STYLES */
+
+/* Larger mobile and tablet devices */
+@media (max-width: 991px) {
+    #section1 .hero h1 {
+        font-size: 36px;
+    }
+    
+    #section1 .subtitle {
+        font-size: 16px;
+        margin-bottom: 30px;
+    }
+    
+    #section1 .dashboard-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    #section1 .device-mockup {
+        grid-column: 1 / span 2;
+        grid-row: 1;
+        margin-bottom: 20px;
+    }
+    
+    #section1 .attacks-card, 
+    #section1 .alerts-card, 
+    #section1 .alert-levels-card, 
+    #section1 .remediated-card {
+        grid-column: auto;
+        grid-row: auto;
+    }
+    
+    #section1 .client-logos {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+    }
+    
+    #section1 .client-logo {
+        width: 100px;
+    }
+}
+
+/* Mobile devices */
+@media (max-width: 767px) {
+    #section1 .clients {
+        display: none;
+    }
+    #section1 .navbar {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    #section1 .hero {
+        padding: 60px 0 30px;
+    }
+    
+    #section1 .hero h1 {
+        font-size: 28px;
+    }
+    
+    #section1 .subtitle {
+        font-size: 14px;
+        margin-bottom: 25px;
+    }
+    
+    #section1 .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    #section1 .device-mockup {
+        grid-column: 1;
+        grid-row: 1;
+        margin-bottom: 20px;
+        /* Hide device frame on mobile */
+        display: none;
+    }
+    
+    #section1 .card {
+        height: auto;
+        min-height: 150px;
+    }
+    
+    #section1 .metric {
+        font-size: 42px;
+    }
+    
+    #section1 .client-logos {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    #section1 .cta {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    #section1 .cta .launch-btn {
+        font-size: 14px;
+        padding: 10px 15px;
+    }
+
+    /* Mobile menu toggle */
+    .mobile-menu-toggle {
+        display: block;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        z-index: 1001;
+    }
+    
+    #section1 .cta {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 80%;
+        max-width: 300px;
+        height: 100vh;
+        background-color: rgb(10, 30, 21);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        padding: 80px 20px 20px;
+        transition: right 0.3s ease;
+        z-index: 1000;
+        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
+    }
+    
+    #section1 .cta.active {
+        right: 0;
+    }
+    
+    #section1 .cta .launch-btn {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}
+
+/* Small mobile devices */
+@media (max-width: 480px) {
+    #section1 .hero h1 {
+        font-size: 24px;
+    }
+    
+    #section1 .subtitle {
+        font-size: 14px;
+        padding: 0 10px;
+    }
+    
+    #section1 .hero-cta .launch-btn {
+        padding: 12px 20px;
+        font-size: 14px;
+    }
+    
+    #section1 .metric {
+        font-size: 36px;
+    }
+    
+    #section1 .client-logo {
+        width: 80px;
+        height: 25px;
+        padding: 10px 0;
+    }
 }

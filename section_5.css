@@ -319,16 +319,44 @@
     opacity: 0.7;
 }
 
-/* Media queries for responsiveness */
-@media (max-width: 900px) {
+/* MOBILE RESPONSIVE STYLES */
+
+/* Tablets and medium devices */
+@media (max-width: 991px) {
+    #section5 .pricing {
+        padding: 60px 0;
+    }
+    
+    #section5 h2 {
+        font-size: 36px;
+    }
+    
+    #section5 .subtitle {
+        font-size: 16px;
+        max-width: 90%;
+    }
+    
     #section5 .pricing-grid {
         grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
     }
     
     #section5 .pricing-card:last-child {
         grid-column: span 2;
-        max-width: 400px;
+        max-width: 500px;
         margin: 0 auto;
+    }
+    
+    #section5 .pricing-card {
+        padding: 25px;
+    }
+    
+    #section5 .plan-name {
+        font-size: 18px;
+    }
+    
+    #section5 .price {
+        font-size: 54px;
     }
     
     #section5 .footer-content {
@@ -340,23 +368,120 @@
         flex-wrap: wrap;
         gap: 40px;
     }
+    
+    #section5 .section-header {
+        margin-bottom: 40px;
+    }
 }
 
-@media (max-width: 600px) {
+/* Mobile devices */
+@media (max-width: 767px) {
+    #section5 .pricing {
+        padding: 40px 0;
+    }
+    
+    #section5 h2 {
+        font-size: 28px;
+    }
+    
+    #section5 .subtitle {
+        font-size: 14px;
+        br {
+            display: none;
+        }
+    }
+    
+    #section5 .pricing-grid {
+        margin-top: 30px;
+    }
+    
+    #section5 .pricing-card {
+        padding: 20px;
+    }
+    
+    #section5 .plan-name {
+        font-size: 16px;
+        margin-bottom: 16px;
+    }
+    
+    #section5 .price {
+        font-size: 42px;
+    }
+    
+    #section5 .dollar-sign {
+        font-size: 20px;
+    }
+    
+    #section5 .plan-description {
+        font-size: 13px;
+    }
+    
+    #section5 .get-started-btn {
+        padding: 10px;
+        font-size: 14px;
+        margin-bottom: 20px;
+    }
+    
+    #section5 .features-title {
+        font-size: 15px;
+        margin-bottom: 15px;
+    }
+    
+    #section5 .features-list li {
+        font-size: 13px;
+        margin-bottom: 12px;
+    }
+    
+    #section5 .footer {
+        padding: 40px 0 20px;
+    }
+    
+    #section5 .footer-links {
+        gap: 20px;
+    }
+    
+    #section5 .footer-column h4 {
+        font-size: 15px;
+        margin-bottom: 15px;
+    }
+    
+    #section5 .section-header {
+        margin-bottom: 30px;
+    }
+}
+
+/* Small mobile devices */
+@media (max-width: 480px) {
     #section5 .pricing-grid {
         grid-template-columns: 1fr;
     }
     
     #section5 .pricing-card:last-child {
         grid-column: 1;
+        max-width: 100%;
     }
     
     #section5 h2 {
-        font-size: 32px;
+        font-size: 24px;
+    }
+    
+    #section5 .subtitle {
+        font-size: 13px;
+        padding: 0 10px;
+    }
+    
+    #section5 .footer-links {
+        flex-direction: column;
+        gap: 30px;
     }
     
     #section5 .footer-bottom {
         flex-direction: column;
         gap: 20px;
+        text-align: center;
+    }
+    
+    #section5 .social-links {
+        justify-content: center;
     }
 } 

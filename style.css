@@ -453,20 +453,41 @@ footer {
   h2 {
     font-size: 2rem;
   }
-}
-
-@media (max-width: 768px) {
-  .footer-content {
-    flex-direction: column;
-    gap: 20px;
+  
+  .container {
+    padding: 0 15px;
   }
   
-  .footer-links {
-    margin-top: 20px;
+  .hero h1 {
+    max-width: 95%;
+  }
+  
+  .hero p.subtitle {
+    max-width: 80%;
+  }
+  
+  .header-content {
+    padding: 15px 0;
   }
 }
 
-@media (max-width: 576px) {
+@media (max-width: 767px) {
+  body::before {
+    height: 500px;
+  }
+  
+  h1 {
+    font-size: 2rem;
+  }
+  
+  h2 {
+    font-size: 1.75rem;
+  }
+  
+  h3 {
+    font-size: 1.25rem;
+  }
+  
   .header-content {
     flex-direction: column;
     gap: 15px;
@@ -478,16 +499,113 @@ footer {
     gap: 15px;
   }
   
-  nav ul li {
-    margin-bottom: 10px;
+  .hero {
+    padding: 100px 0 40px;
+  }
+  
+  .hero h1 {
+    font-size: 2rem;
+  }
+  
+  .hero p.subtitle {
+    font-size: 1rem;
+    max-width: 95%;
+  }
+  
+  .footer-content {
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .footer-links {
+    margin-top: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .btn {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+  
+  /* Make sure device frame is hidden on mobile */
+  .device-mockup {
+    display: none !important;
+  }
+  
+  .mobile-menu-toggle {
+    display: block;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 1.75rem;
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+  }
+  
+  h3 {
+    font-size: 1.125rem;
   }
   
   .hero {
-    padding: 140px 0 60px;
+    padding: 90px 0 30px;
   }
-
-  .features-grid {
-    grid-template-columns: 1fr;
+  
+  .hero h1 {
+    font-size: 1.75rem;
+  }
+  
+  .hero p.subtitle {
+    font-size: 0.875rem;
+  }
+  
+  .hero-buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .btn {
+    width: 100%;
+    padding: 10px 15px;
+    font-size: 14px;
+  }
+  
+  nav ul {
+    gap: 10px;
+  }
+  
+  nav ul li a {
+    font-size: 14px;
+  }
+  
+  .cta .launch-btn, .hero-cta .launch-btn {
+    padding: 10px 15px;
+    font-size: 14px;
+  }
+  
+  /* Adjust logo size */
+  .logo-icon {
+    width: 24px;
+    height: 24px;
+    font-size: 14px;
+  }
+  
+  .logo-text {
+    font-size: 16px;
+  }
+  
+  /* Ensure header is always visible and accessible */
+  header {
+    padding: 10px 0;
+  }
+  
+  /* Hide decorative elements that might crowd mobile view */
+  body::after {
+    opacity: 0.3;
   }
 }
 
