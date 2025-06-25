@@ -1,1 +1,1 @@
-[View responsive table](./index.html)
+[View responsive table](https://shrey113.github.io/Adb-Device-Manager-download-page/android_download.html)
