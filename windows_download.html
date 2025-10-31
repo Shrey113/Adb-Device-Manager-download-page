@@ -1,280 +1,213 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Download ADB Device Manager for Windows</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Download — ADB Device Manager for Windows</title>
+
+  <!-- Fonts & Icons -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
   <style>
-    html, body {
-      height: 100%;
-      margin: 0;
-      overflow: hidden;
+    :root {
+      --bg: #061213;
+      --card: rgba(255,255,255,0.04);
+      --primary: #06c77b;
+      --accent: #0bc77a;
+      --muted: rgba(255,255,255,0.75);
+      --radius: 14px;
+      --transition: 200ms cubic-bezier(.2,.9,.3,1);
     }
-    
-    body {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    
-    .download-container {
-      width: 100%;
-      max-width: 800px;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 2vh 20px;
-      box-sizing: border-box;
-      position: relative;
-      z-index: 1;
-    }
-    
-    .download-header {
-      margin-bottom: 30px;
-      text-align: center;
-    }
-    
-    .download-header h1 {
-      font-size: 2.5rem;
-      line-height: 1.3;
-      background: linear-gradient(90deg, #ffffff, #0bc77a);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      margin-bottom: 10px;
+    *{box-sizing:border-box}
+    html,body{margin:0;height:100%;font-family:Inter,system-ui,Segoe UI,Roboto,Arial;color:#eafaf0;background:#041314;display:flex;align-items:center;justify-content:center;padding:24px;}
+    .wrap{width:100%;max-width:960px;display:grid;grid-template-columns:420px 1fr;gap:28px;align-items:center;}
+    @media(max-width:880px){
+      .wrap{grid-template-columns:1fr;}
+      .card.actions{order:-1;} /* ✅ Download box first on mobile */
     }
 
-    .download-header h1 span {
-      position: relative;
-      display: inline-block;
-    }
+    .card{background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.04);border-radius:var(--radius);box-shadow:0 10px 40px rgba(0,0,0,0.45);padding:28px;}
 
-    .download-header p {
-      font-size: clamp(0.9rem, 3vw, 1.1rem);
-      opacity: 0.8;
-    }
-    
-    .download-card {
-      background: rgba(15, 45, 35, 0.5);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: var(--radius);
-      padding: clamp(15px, 5vh, 40px);
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-      text-align: center;
-      transition: var(--transition);
-      width: 100%;
-      box-sizing: border-box;
-      position: relative;
-      overflow: hidden;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-    }
-    
-    .download-card:before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 5px;
-      background: var(--primary-color);
-    }
-    
-    .platform-icon {
-      font-size: clamp(3rem, 8vw, 5rem);
-      color: var(--primary-color);
-      margin-bottom: 2vh;
-      animation: pulse 2s infinite;
-    }
-    
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-      100% { transform: scale(1); }
-    }
-    
-    .platform-name {
-      font-size: 2rem;
-      margin-bottom: 15px;
-      color: var(--text-light);
-    }
-    
-    .platform-details {
-      margin-bottom: 30px;
-      color: var(--text-light);
-      opacity: 0.8;
-    }
-    
-    .manual-download-msg {
-      margin-top: 3vh;
-      padding: 15px;
-      background-color: rgba(15, 45, 35, 0.3);
-      border-radius: var(--radius);
-      font-size: clamp(0.8rem, 2vw, 1rem);
-      color: var(--text-light);
-      opacity: 0.9;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-    
-    .download-btn {
-      display: inline-block;
-      padding: clamp(12px, 2vh, 18px) clamp(25px, 4vw, 45px);
-      background: linear-gradient(90deg, #0bc77a, #09b46e);
-      color: #0a1e15;
-      border-radius: 30px;
-      font-weight: 500;
-      font-size: clamp(1rem, 2vw, 1.2rem);
-      transition: var(--transition);
-      box-shadow: 0 4px 15px rgba(11, 199, 122, 0.25);
-      white-space: nowrap;
-      cursor: pointer;
-      border: none;
-    }
-    
-    .download-btn:hover {
-      background-color: #09b46e;
-      transform: translateY(-3px);
-      box-shadow: 0 6px 20px rgba(11, 199, 122, 0.35);
-    }
-    
-    .download-btn i {
-      margin-right: 10px;
-    }
-    
-    .system-requirements {
-      font-size: clamp(0.7rem, 2vw, 0.9rem);
-      color: var(--text-light);
-      opacity: 0.7;
-      margin-top: 2vh;
-    }
-    
-    #download-progress {
-      margin-top: 2vh;
-      margin-bottom: 3vh;
-      display: none;
-    }
-    
-    .progress-text {
-      margin-bottom: 1vh;
-      color: var(--primary-color);
-      font-weight: 500;
-    }
+    .brand{display:flex;align-items:center;gap:14px;margin-bottom:12px;}
+    .brand .app-icon{width:58px;height:58px;border-radius:12px;overflow:hidden;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#082923,#053227);}
+    .brand img{width:48px;height:48px;border-radius:8px;}
+    .brand h1{margin:0;font-size:1.25rem;}
+    .brand p{margin:0;color:var(--muted);font-size:0.9rem;}
 
-    .back-to-downloads {
-      position: absolute;
-      top: 20px;
-      left: 20px;
-      color: var(--text-light);
-      opacity: 0.7;
-      transition: var(--transition);
-      font-size: 14px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      z-index: 5;
-      text-decoration: none;
-    }
+    .platform{text-align:center;margin-top:12px;}
+    .platform i{font-size:64px;color:var(--primary);}
+    .platform h2{margin:10px 0 4px;}
+    .platform p{color:var(--muted);font-size:0.9rem;}
 
-    .back-to-downloads:hover {
-      opacity: 1;
-      color: var(--primary-color);
-    }
-    
-    @media (max-height: 500px) {
-      .download-container {
-        padding: 10px;
-      }
-      .download-header {
-        margin-bottom: 10px;
-      }
-      .platform-icon {
-        margin-bottom: 10px;
-      }
-      .manual-download-msg {
-        margin-top: 10px;
-      }
-    }
+    ul.features{margin-top:10px;padding-left:0;}
+    ul.features li{list-style:none;margin:8px 0;color:var(--muted);padding-left:26px;position:relative;}
+    ul.features li:before{content:"\f058";font-family:"bootstrap-icons";position:absolute;left:0;color:var(--primary);}
+
+    .actions h3{margin-top:0;}
+    .controls{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px;}
+    .btn{border:0;border-radius:12px;cursor:pointer;padding:12px 18px;font-weight:600;display:inline-flex;align-items:center;gap:10px;transition:var(--transition);}
+    .btn-primary{background:linear-gradient(90deg,var(--primary),var(--accent));color:#042216;}
+    .btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.08);color:var(--muted);}
+    .btn-danger{background:transparent;border:1px solid rgba(255,80,80,0.15);color:#ffb7b7;}
+    .btn:disabled{opacity:.55;cursor:not-allowed;}
+
+    .progress-wrap{margin-top:10px;display:none;flex-direction:column;gap:10px;}
+    .progress{height:12px;width:100%;background:rgba(255,255,255,0.04);border-radius:999px;overflow:hidden;}
+    .progress i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--primary),var(--accent));transition:width 400ms;}
+    .progress-text{display:flex;justify-content:space-between;font-size:0.9rem;color:var(--muted);}
+
+    .manual{margin-top:10px;font-size:0.9rem;color:var(--muted);}
+    .manual a{color:var(--primary);font-weight:600;text-decoration:none;}
+
+    #overlay{position:fixed;inset:0;background:rgba(0,0,0,0.65);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;z-index:999;}
+    .guide{width:95%;max-width:940px;height:88vh;background:#041513;border:1px solid rgba(255,255,255,0.04);border-radius:12px;overflow:hidden;display:grid;grid-template-columns:340px 1fr;}
+    .guide .left{padding:22px;background:linear-gradient(180deg,rgba(11,199,122,0.03),transparent);}
+    .guide .left h4{margin-top:0;}
+    .guide iframe{width:100%;height:100%;border:0;background:white;}
+    .close-overlay{position:absolute;top:20px;right:20px;background:rgba(0,0,0,0.4);border:1px solid rgba(255,255,255,0.05);padding:8px;border-radius:10px;color:var(--muted);cursor:pointer;}
   </style>
 </head>
-<body> 
-  <header>
-    <div class="container">
-        <div class="navbar">
-            <div class="logo fade-in">
-                <a href="index.html">
-                    <div class="app-icon">
-                        <img src="images/app_png.png" alt="ADB Manager" style="width: 51px; height: 51px; border-radius: 6px;">
-                    </div>
-                    <div class="logo-text">ADB Manager</div>
-                </a>
-            </div>
-            <nav class="fade-in">
-                <ul>
-                    <li><a href="index.html#features">Features</a></li>
-                    <li><a href="download.html">Download</a></li>
-                    <li><a href="installation.html">Installation</a></li>
-                </ul>
-            </nav>
-            <div class="cta fade-in">
-                <button class="launch-btn" onclick="window.location.href='download.html'">Download App</button>
-            </div>
-        </div>
-    </div>
-  </header>
+<body>
+  <div class="wrap">
 
-  <section class="download-container">
-    <div class="download-header">
-      <h1>Download for <span>Windows</span></h1>
-      <p>Your download is starting automatically...</p>
-    </div>
-    
-    <div class="download-card">
-      <div class="platform-icon">
+    <!-- Download Actions (first on mobile) -->
+    <aside class="card actions">
+      <div class="brand">
+        <div class="app-icon"><img src="images/app_png.png" alt="ADB Manager"></div>
+        <div><h1>ADB Device Manager</h1><p>Windows Desktop Companion</p></div>
+      </div>
+
+      <h3>Ready to install?</h3>
+      <p>Click <b>Start Download</b> below to get the Windows version. No auto-download — you decide when to start.</p>
+
+      <div class="controls">
+        <button id="startBtn" class="btn btn-primary"><i class="bi bi-download"></i>Start Download</button>
+        <button id="cancelBtn" class="btn btn-danger" disabled><i class="bi bi-x-circle"></i>Cancel</button>
+      </div>
+
+      <div class="progress-wrap" id="progressWrap">
+        <div class="progress-text"><span id="progressLabel">Waiting to start</span><span id="progressPct">0%</span></div>
+        <div class="progress"><i id="progressBar"></i></div>
+      </div>
+
+      <div class="manual">Manual link: 
+        <a id="manualDownload" href="#" target="_blank">Download EXE</a>
+      </div>
+
+      <p style="font-size:0.85rem;color:var(--muted);margin-top:12px;">Version 1.0.0 • ~500 MB • Windows 10/11 (64-bit)</p>
+    </aside>
+
+    <!-- Info Section -->
+    <section class="card">
+      <div class="platform">
         <i class="bi bi-windows"></i>
+        <h2>Windows App</h2>
+        <p>Seamlessly connect with your Android device via ADB over Wi-Fi.</p>
       </div>
-      
-      <div id="download-progress">
-        <p class="progress-text">Download in progress...</p>
-      </div>
-      
-      <div class="manual-download-msg">
-        If your download doesn't start automatically, 
-        <a href="https://github.com/Shrey113/Adb-Device-Manager/releases/download/ADB-Device-Manager-v.0.6/adb_devices.exe" id="manual-download-btn" class="download-btn">
-          <i class="bi bi-download"></i> Click here
-        </a>
-      </div>
-      
-      <p class="system-requirements">Version 1.0.0 • 500 MB+ • Windows 10/11 (64-bit)</p>
-    </div>
-  </section>
 
-  <script>
-    // Auto start download when page loads
-    window.addEventListener('load', function() {
-      const downloadUrl = "https://github.com/Shrey113/Adb-Device-Manager/releases/download/ADB-Device-Manager-v.0.6/adb_devices.exe";
-      const downloadLink = document.createElement('a');
-      downloadLink.href = downloadUrl;
-      downloadLink.download = downloadUrl.split('/').pop();
-      document.body.appendChild(downloadLink);
-      
-      // Start download
-      setTimeout(function() {
-        downloadLink.click();
-        document.getElementById('download-progress').style.display = 'block';
-      }, 1000);
-      
-      document.body.removeChild(downloadLink);
-    });
-    
-    // Manual download button
-    document.getElementById('manual-download-btn').addEventListener('click', function(e) {
-      document.getElementById('download-progress').style.display = 'block';
-    });
-  </script>
+      <ul class="features">
+        <li>Fast device discovery & pairing</li>
+        <li>File transfer, notifications & media control</li>
+        <li>Automatic startup in background</li>
+        <li>Compatible with all ADB devices</li>
+      </ul>
+    </section>
+
+  </div>
+
+  <!-- Overlay guide -->
+  <div id="overlay">
+    <div class="guide">
+      <button class="close-overlay" id="closeOverlay"><i class="bi bi-x-lg"></i></button>
+      <div class="left">
+        <h4>Installation Steps</h4>
+        <ul>
+          <li>Locate <b>adb_devices.exe</b> in your Downloads folder.</li>
+          <li>Right-click → Run as Administrator.</li>
+          <li>Allow Windows Defender prompt (if shown).</li>
+          <li>Finish setup and launch the app.</li>
+        </ul>
+      </div>
+      <iframe src="installation_guide.html"></iframe>
+    </div>
+  </div>
+<script>
+(function(){
+  const DOWNLOAD_URL = "https://github.com/Shrey113/Adb-Device-Manager/releases/download/ADB-Device-Manager-v.0.6/adb_devices.exe";
+
+  const startBtn = document.getElementById('startBtn');
+  const cancelBtn = document.getElementById('cancelBtn');
+  const progressWrap = document.getElementById('progressWrap');
+  const progressBar = document.getElementById('progressBar');
+  const progressLabel = document.getElementById('progressLabel');
+  const progressPct = document.getElementById('progressPct');
+  const manualDownload = document.getElementById('manualDownload');
+
+  manualDownload.href = DOWNLOAD_URL;
+
+  let timer = null;
+  let pct = 0;
+  let running = false;
+
+  function setProgress(v){
+    progressBar.style.width = v + '%';
+    progressPct.textContent = v + '%';
+  }
+
+function startProgress() {
+  running = true;
+  pct = 0;
+  progressWrap.style.display = 'flex';
+  cancelBtn.disabled = false;
+  startBtn.disabled = true;
+  progressLabel.textContent = 'Starting download...';
+
+  const duration = 1000; // 1 seconds
+  const startTime = Date.now();
+
+  timer = setInterval(() => {
+    const elapsed = Date.now() - startTime;
+    pct = Math.min(100, Math.round((elapsed / duration) * 100));
+
+    setProgress(pct);
+
+    if (pct >= 100) {
+      clearInterval(timer);
+      progressLabel.textContent = 'Download started!';
+      cancelBtn.disabled = true;
+      running = false;
+    } else {
+      progressLabel.textContent = 'Downloading...';
+    }
+  }, 50); // smooth updates every 50ms
+}
+
+
+  function stopProgress(){
+    clearInterval(timer);
+    running = false;
+    pct = 0;
+    setProgress(0);
+    progressWrap.style.display = 'none';
+    startBtn.disabled = false;
+    cancelBtn.disabled = true;
+  }
+
+  // ✅ Updated: removed overlay trigger
+  startBtn.onclick = ()=>{
+    const a = document.createElement('a');
+    a.href = DOWNLOAD_URL;
+    a.download = DOWNLOAD_URL.split('/').pop();
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    startProgress(); // start progress only, no overlay
+  };
+
+  cancelBtn.onclick = stopProgress;
+})();
+</script>
+
 </body>
-</html> 
+</html>
