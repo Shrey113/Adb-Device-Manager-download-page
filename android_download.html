@@ -46,22 +46,6 @@
       align-items: center;
     }
 
-    @media(max-width:880px) {
-      .wrap {
-        grid-template-columns: 1fr;
-      }
-
-      .card.actions {
-        order: -1;
-      }
-      .Info_Section{
-        display: none;
-      }
-         html,
-      body {
-        padding: 12px;
-      }
-    }
 
     .card {
       background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
@@ -226,6 +210,31 @@
       font-weight: 600;
       text-decoration: none;
     }
+
+        @media(max-width:880px) {
+      .wrap {
+        grid-template-columns: 1fr;
+      }
+
+      .card.actions {
+        order: -1;
+      }
+      .Info_Section{
+        display: none;
+      }
+         html,
+      body {
+        padding: 12px;
+      }
+      .brand h1 {
+      margin: 0;
+      font-size: 1rem;
+    }
+     .brand p {
+      margin: 0;
+      display: none;
+    }
+    }
   </style>
 </head>
 
@@ -243,7 +252,7 @@
       </div>
 
       <h3>Ready to install?</h3>
-      <p>Tap <b>Start Download</b> to download the Android APK. No auto-download — full control in your hands.</p>
+      <p>Tap <b>Start Download</b> to download the Android APK.</p>
 
       <div class="controls">
         <button id="startBtn" class="btn btn-primary"><i class="bi bi-download"></i>Start Download</button>
@@ -259,7 +268,7 @@
         <a id="manualDownload" href="#" target="_blank">Download APK</a>
       </div>
 
-      <p style="font-size:0.85rem;color:var(--muted);margin-top:12px;">Version 0.9.5 • 12.3 MB • Android 8.0+</p>
+      <p style="font-size:0.85rem;color:var(--muted);margin-top:12px;">Version 0.9.5 • 18.3 MB • Android 8.0+</p>
     </aside>
 
     <!-- Info Section -->

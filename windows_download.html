@@ -47,24 +47,6 @@
       align-items: center;
     }
 
-    @media(max-width:880px) {
-      .wrap {
-        grid-template-columns: 1fr;
-      }
-
-      .card.actions {
-        order: -1;
-      }
-      .Info_Section{
-        display: none;
-      }
-         html,
-      body {
-        padding: 12px;
-      }
-    }
-
-
     .card {
       background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
       border: 1px solid rgba(255, 255, 255, 0.04);
@@ -285,6 +267,32 @@
       color: var(--muted);
       cursor: pointer;
     }
+
+    
+    @media(max-width:880px) {
+      .wrap {
+        grid-template-columns: 1fr;
+      }
+
+      .card.actions {
+        order: -1;
+      }
+      .Info_Section{
+        display: none;
+      }
+         html,
+      body {
+        padding: 12px;
+      }
+      .brand h1 {
+      margin: 0;
+      font-size: 1rem;
+    }
+     .brand p {
+      margin: 0;
+      display: none;
+    }
+    }
   </style>
 </head>
 
@@ -302,7 +310,7 @@
       </div>
 
       <h3>Ready to install?</h3>
-      <p>Click <b>Start Download</b> below to get the Windows version. No auto-download — you decide when to start.</p>
+      <p>Click <b>Start Download</b> below to get the Windows version.</p>
 
       <div class="controls">
         <button id="startBtn" class="btn btn-primary"><i class="bi bi-download"></i>Start Download</button>
