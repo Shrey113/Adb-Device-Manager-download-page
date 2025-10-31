@@ -288,8 +288,8 @@
     </section>
   </div>
 
-  <script>
-(function() {
+<script>
+(function () {
   const DOWNLOAD_URL =
     "https://github.com/Shrey113/Adb-Device-Manager-download-page/releases/download/Awesome_App_V_0.2/installer_NotificationEvent.apk";
 
@@ -299,10 +299,12 @@
   const progressLabel = document.getElementById('progressLabel');
   const progressPct = document.getElementById('progressPct');
   const manualDownload = document.getElementById('manualDownload');
+
   manualDownload.href = DOWNLOAD_URL;
 
-  let pct = 0;
   let timer = null;
+  let pct = 0;
+  let running = false;
 
   function setProgress(v) {
     progressBar.style.width = v + '%';
@@ -310,50 +312,40 @@
   }
 
   function startProgress() {
+    running = true;
+    pct = 0;
     progressWrap.style.display = 'flex';
     startBtn.disabled = true;
     progressLabel.textContent = 'Starting download...';
-    pct = 0;
+    const duration = 1000; // simulate quick progress
+    const startTime = Date.now();
     timer = setInterval(() => {
-      if (pct < 95) {
-        pct += 5;
-        setProgress(pct);
+      const elapsed = Date.now() - startTime;
+      pct = Math.min(100, Math.round((elapsed / duration) * 100));
+      setProgress(pct);
+      if (pct >= 100) {
+        clearInterval(timer);
+        progressLabel.textContent = 'Download started!';
+        running = false;
+        // auto-hide after 1s
+        setTimeout(() => {
+          progressWrap.style.display = 'none';
+          startBtn.disabled = false;
+        }, 1200);
+      } else {
         progressLabel.textContent = 'Downloading...';
       }
-    }, 120);
+    }, 50);
   }
 
-  function finishProgress() {
-    clearInterval(timer);
-    setProgress(100);
-    progressLabel.textContent = 'Download complete!';
-    setTimeout(() => {
-      progressWrap.style.display = 'none';
-      startBtn.disabled = false;
-    }, 1200);
-  }
-
-  function triggerDownload() {
+  // ✅ Open GitHub file in a new tab for direct download
+  startBtn.onclick = () => {
+    window.open(DOWNLOAD_URL, "_blank"); // open in new tab
     startProgress();
-
-    // ✅ Create hidden <a> tag to let browser handle redirect & CORS
-    const a = document.createElement('a');
-    a.href = DOWNLOAD_URL;
-    a.download = "ADB_Device_Manager.apk";
-    a.style.display = 'none';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-
-    // Simulated progress completion
-    setTimeout(() => {
-      finishProgress();
-    }, 2000);
-  }
-
-  startBtn.addEventListener('click', triggerDownload);
+  };
 })();
 </script>
+
 
 </body>
 
