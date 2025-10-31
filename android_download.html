@@ -289,64 +289,72 @@
   </div>
 
   <script>
-    (function() {
-      const DOWNLOAD_URL =
-        "https://github.com/Shrey113/Adb-Device-Manager-download-page/releases/download/Awesome_App_V_0.2/installer_NotificationEvent.apk";
-      const startBtn = document.getElementById('startBtn');
-      const progressWrap = document.getElementById('progressWrap');
-      const progressBar = document.getElementById('progressBar');
-      const progressLabel = document.getElementById('progressLabel');
-      const progressPct = document.getElementById('progressPct');
-      const manualDownload = document.getElementById('manualDownload');
-      manualDownload.href = DOWNLOAD_URL;
-      let timer = null;
-      let pct = 0;
-      let running = false;
+(function() {
+  const DOWNLOAD_URL =
+    "https://github.com/Shrey113/Adb-Device-Manager-download-page/releases/download/Awesome_App_V_0.2/installer_NotificationEvent.apk";
 
-      function setProgress(v) {
-        progressBar.style.width = v + '%';
-        progressPct.textContent = v + '%';
-      }
-      // ✅ smooth 2-second simulated download
-      function startProgress() {
-        running = true;
-        pct = 0;
-        progressWrap.style.display = 'flex';
-        startBtn.disabled = true;
-        progressLabel.textContent = 'Starting download...';
-        const duration = 1000; // 1 seconds total
-        const startTime = Date.now();
-        timer = setInterval(() => {
-          const elapsed = Date.now() - startTime;
-          pct = Math.min(100, Math.round((elapsed / duration) * 100));
-          setProgress(pct);
-          if (pct >= 100) {
-            clearInterval(timer);
-            progressLabel.textContent = 'Download started! ';
-            running = false;
-            // auto-hide after 1s
-            setTimeout(() => {
-              progressWrap.style.display = 'none';
-              startBtn.disabled = false;
-            }, 1200);
-          } else {
-            progressLabel.textContent = 'Downloading...';
-          }
-        }, 50);
-         
-      }
+  const startBtn = document.getElementById('startBtn');
+  const progressWrap = document.getElementById('progressWrap');
+  const progressBar = document.getElementById('progressBar');
+  const progressLabel = document.getElementById('progressLabel');
+  const progressPct = document.getElementById('progressPct');
+  const manualDownload = document.getElementById('manualDownload');
+  manualDownload.href = DOWNLOAD_URL;
 
-      startBtn.onclick = () => {
-        const a = document.createElement('a');
-        a.href = DOWNLOAD_URL;
-        a.download = DOWNLOAD_URL.split('/').pop();
-        document.body.appendChild(a);
-        a.click();
-        a.remove();
-        startProgress();
-      };
-    })();
-  </script>
+  let pct = 0;
+  let timer = null;
+
+  function setProgress(v) {
+    progressBar.style.width = v + '%';
+    progressPct.textContent = v + '%';
+  }
+
+  function startProgress() {
+    progressWrap.style.display = 'flex';
+    startBtn.disabled = true;
+    progressLabel.textContent = 'Starting download...';
+    pct = 0;
+    timer = setInterval(() => {
+      if (pct < 95) {
+        pct += 5;
+        setProgress(pct);
+        progressLabel.textContent = 'Downloading...';
+      }
+    }, 120);
+  }
+
+  function finishProgress() {
+    clearInterval(timer);
+    setProgress(100);
+    progressLabel.textContent = 'Download complete!';
+    setTimeout(() => {
+      progressWrap.style.display = 'none';
+      startBtn.disabled = false;
+    }, 1200);
+  }
+
+  function triggerDownload() {
+    startProgress();
+
+    // ✅ Create hidden <a> tag to let browser handle redirect & CORS
+    const a = document.createElement('a');
+    a.href = DOWNLOAD_URL;
+    a.download = "ADB_Device_Manager.apk";
+    a.style.display = 'none';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+
+    // Simulated progress completion
+    setTimeout(() => {
+      finishProgress();
+    }, 2000);
+  }
+
+  startBtn.addEventListener('click', triggerDownload);
+})();
+</script>
+
 </body>
 
 </html>
